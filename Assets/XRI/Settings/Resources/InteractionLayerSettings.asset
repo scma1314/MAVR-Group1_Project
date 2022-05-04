@@ -15,11 +15,11 @@ MonoBehaviour:
   m_LayerNames:
   - Default
   - Greifen
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Snap_Table
+  - Boxinhalt1
+  - Boxinhalt2
+  - Boxinhalt3
+  - Boxinhalt4
   - 
   - 
   - 

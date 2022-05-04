@@ -284,7 +284,7 @@
                 {
                     "name": "",
                     "id": "71a4d23f-3e9a-4513-923b-ba388c5e84bf",
-                    "path": "<XRController>{LeftHand}/triggerPressed",
+                    "path": "<XRInputV1::Valve::IndexControllerOpenXR>{LeftHand}/primarybutton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Generic XR Controller",
@@ -295,7 +295,7 @@
                 {
                     "name": "",
                     "id": "49a23327-a116-48c0-8af9-0d2c50c15a88",
-                    "path": "<XRController>{LeftHand}/triggerPressed",
+                    "path": "<ValveIndexController>{LeftHand}/primaryButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Generic XR Controller",

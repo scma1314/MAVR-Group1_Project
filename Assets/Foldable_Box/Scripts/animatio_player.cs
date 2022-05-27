@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class animatio_player : MonoBehaviour
 {
 
-    string  currentstate; 
-    
+    string currentstate;
+
     //define diffrent states  
     //TODO replace with enum 
     const string IDLE = "IDLE";
@@ -38,27 +38,21 @@ public class animatio_player : MonoBehaviour
     bool Button_6_bool = false;
     bool Button_7_bool = false;
 
+    //State variable for buttons 
+    public Collider coll1;
+    public Collider coll2;
+    public Collider coll3;
+    public Collider coll4;
+    public Collider coll5;
+    public Collider coll6;
+    public Collider coll7;
+
     //instantiate te animator 
-    Animator myAnimator; 
+    Animator myAnimator;
 
 
     // Start is called before the first frame update
     void Start()
-    {
-
-        myAnimator = GetComponent<Animator>();
-        currentstate = IDLE;
-        //deactivate all button at start except button 1 
-        Button_2.gameObject.SetActive(false);
-        Button_3.gameObject.SetActive(false);
-        Button_4.gameObject.SetActive(false);
-        Button_5.gameObject.SetActive(false);
-        Button_6.gameObject.SetActive(false);
-        Button_7.gameObject.SetActive(false);
-
-    }
-
-    private void Awake()
     {
         Button_1.onClick.AddListener(Button_1_called);
         Button_2.onClick.AddListener(Button_2_called);
@@ -67,147 +61,171 @@ public class animatio_player : MonoBehaviour
         Button_5.onClick.AddListener(Button_5_called);
         Button_6.onClick.AddListener(Button_6_called);
         Button_7.onClick.AddListener(Button_7_called);
-    
+
+        myAnimator = GetComponent<Animator>();
+        currentstate = "";
+        //deactivate all button at start except button 1 
+        Button_2.gameObject.SetActive(false);
+        Button_3.gameObject.SetActive(false);
+        Button_4.gameObject.SetActive(false);
+        Button_5.gameObject.SetActive(false);
+        Button_6.gameObject.SetActive(false);
+        Button_7.gameObject.SetActive(false);
+
+        coll1.enabled = true;
+        coll2.enabled = false;
+        coll3.enabled = false;
+        coll4.enabled = false;
+        coll5.enabled = false;
+        coll6.enabled = false;
+        coll7.enabled = false;
     }
 
-
-
-    private void Update() 
-    
+    public void SetState(string nextstate)
     {
-         if (currentstate==IDLE && Button_1_bool == true )
+        currentstate = nextstate;
+    }
+
+    private void Update()
+    {
+        if (currentstate == IDLE)// && Button_1_bool == true)
         {
             myAnimator.Play(FBS1);
-            currentstate=FBS1;
-             Button_1_bool=false;
+            Button_1_bool = false;
             Button_2.gameObject.SetActive(true);
-           
-            //Button_1.GetComponentInChildren<Text>().text = "F";
+
+            coll1.enabled = false;
+            coll2.enabled = true;
         }
 
 
-         if (currentstate==FBS1 && Button_2_bool == true )
+        if (currentstate == FBS1)// && Button_2_bool == true)
         {
             myAnimator.Play(FBS2);
-            currentstate=FBS2;
-            Button_2_bool=false;
+            Button_2_bool = false;
             Button_3.gameObject.SetActive(true);
-            
+
+            coll2.enabled = false;
+            coll3.enabled = true;
+
         }
 
-        if (currentstate==FBS2 && Button_3_bool == true )
+        if (currentstate == FBS2)// && Button_3_bool == true)
         {
             myAnimator.Play(FBS3);
-            currentstate=FBS3;
-            Button_3_bool=false;
+            Button_3_bool = false;
             Button_4.gameObject.SetActive(true);
-            
+
+            coll3.enabled = false;
+            coll4.enabled = true;
+
         }
 
-        if (currentstate==FBS3 && Button_4_bool == true )
+        if (currentstate == FBS3)// && Button_4_bool == true)
         {
             myAnimator.Play(FBS4);
-            currentstate=FBS4;
-            Button_4_bool=false;
+            Button_4_bool = false;
             Button_5.gameObject.SetActive(true);
-            
+
+            coll4.enabled = false;
+            coll5.enabled = true;
+
         }
 
-        if (currentstate==FBS4 && Button_5_bool == true )
+        if (currentstate == FBS4)// && Button_5_bool == true)
         {
             myAnimator.Play(FBS5);
-            currentstate=FBS5;
-            Button_5_bool=false;
+            Button_5_bool = false;
             Button_6.gameObject.SetActive(true);
-            
+
+            coll5.enabled = false;
+            coll6.enabled = true;
+
         }
 
-        if (currentstate==FBS5 && Button_6_bool == true )
+        if (currentstate == FBS5)// && Button_6_bool == true)
         {
             myAnimator.Play(FBS6);
-            currentstate=FBS6;
-            Button_6_bool=false;
+            Button_6_bool = false;
             Button_7.gameObject.SetActive(true);
-            
+
+            coll6.enabled = false;
+            coll7.enabled = true;
+
         }
 
-        if (currentstate==FBS6 && Button_7_bool == true )
+        if (currentstate == FBS6)// && Button_7_bool == true)
         {
             myAnimator.Play(FBS7);
-            currentstate=FBS7;
-            Button_7_bool=false;
-            
-            
+            Button_7_bool = false;
+
+            coll7.enabled = false;
+            coll1.enabled = true;
         }
-
-
-
-
-
     }
 
 
     void Button_1_called()
     {
 
-        Button_1_bool = true; 
+        Button_1_bool = true;
         //hide button afte it is pressed 
         Button_1.gameObject.SetActive(false);
-        
+
     }
 
     void Button_2_called()
     {
 
-        Button_2_bool = true; 
+        Button_2_bool = true;
         //hide button afte it is pressed 
         Button_2.gameObject.SetActive(false);
-        
+
     }
 
     void Button_3_called()
     {
 
-        Button_3_bool = true; 
+        Button_3_bool = true;
         //hide button afte it is pressed 
         Button_3.gameObject.SetActive(false);
-        
+
     }
 
-     void Button_4_called()
+    void Button_4_called()
     {
 
-        Button_4_bool = true; 
+        Button_4_bool = true;
         //hide button afte it is pressed 
         Button_4.gameObject.SetActive(false);
-        
+
     }
 
     void Button_5_called()
     {
 
-        Button_5_bool = true; 
+        Button_5_bool = true;
         //hide button afte it is pressed 
         Button_5.gameObject.SetActive(false);
-        
+
     }
 
     void Button_6_called()
     {
 
-        Button_6_bool = true; 
+        Button_6_bool = true;
         //hide button afte it is pressed 
         Button_6.gameObject.SetActive(false);
-        
+
     }
 
     void Button_7_called()
     {
 
-        Button_7_bool = true; 
+        Button_7_bool = true;
         //hide button afte it is pressed 
         Button_7.gameObject.SetActive(false);
-        
+
     }
 
 
@@ -217,7 +235,7 @@ public class animatio_player : MonoBehaviour
     // private void Awake() 
     // {
     //    Button_1.onClick.AddListener(OnButtonClick);
-       
+
     // }
 
     // private void OnButtonClick()

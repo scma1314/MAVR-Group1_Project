@@ -3368,6 +3368,13 @@ MonoBehaviour:
   Button_5: {fileID: 782003088}
   Button_6: {fileID: 1688276152}
   Button_7: {fileID: 2037666246}
+  coll1: {fileID: 0}
+  coll2: {fileID: 0}
+  coll3: {fileID: 0}
+  coll4: {fileID: 0}
+  coll5: {fileID: 0}
+  coll6: {fileID: 0}
+  coll7: {fileID: 0}
 --- !u!95 &195371643
 Animator:
   serializedVersion: 4
@@ -10621,6 +10628,13 @@ MonoBehaviour:
   Button_5: {fileID: 782003088}
   Button_6: {fileID: 1688276152}
   Button_7: {fileID: 2037666246}
+  coll1: {fileID: 0}
+  coll2: {fileID: 0}
+  coll3: {fileID: 0}
+  coll4: {fileID: 0}
+  coll5: {fileID: 0}
+  coll6: {fileID: 0}
+  coll7: {fileID: 0}
 --- !u!1 &734612543
 GameObject:
   m_ObjectHideFlags: 0

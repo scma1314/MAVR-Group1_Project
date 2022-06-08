@@ -54,6 +54,7 @@ public class animatio_player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        /*
         Button_1.onClick.AddListener(Button_1_called);
         Button_2.onClick.AddListener(Button_2_called);
         Button_3.onClick.AddListener(Button_3_called);
@@ -61,16 +62,19 @@ public class animatio_player : MonoBehaviour
         Button_5.onClick.AddListener(Button_5_called);
         Button_6.onClick.AddListener(Button_6_called);
         Button_7.onClick.AddListener(Button_7_called);
+        */
 
         myAnimator = GetComponent<Animator>();
         currentstate = "";
         //deactivate all button at start except button 1 
+        /*
         Button_2.gameObject.SetActive(false);
         Button_3.gameObject.SetActive(false);
         Button_4.gameObject.SetActive(false);
         Button_5.gameObject.SetActive(false);
         Button_6.gameObject.SetActive(false);
         Button_7.gameObject.SetActive(false);
+        */
 
         coll1.enabled = true;
         coll2.enabled = false;
@@ -90,21 +94,27 @@ public class animatio_player : MonoBehaviour
     {
         if (currentstate == IDLE)// && Button_1_bool == true)
         {
+            Debug.Log("state: " + currentstate.ToString());
+
             myAnimator.Play(FBS1);
+            /*
             Button_1_bool = false;
             Button_2.gameObject.SetActive(true);
-
+            */
             coll1.enabled = false;
             coll2.enabled = true;
+            
         }
 
 
         if (currentstate == FBS1)// && Button_2_bool == true)
         {
+            Debug.Log("state: " + currentstate.ToString());
             myAnimator.Play(FBS2);
+            /*
             Button_2_bool = false;
             Button_3.gameObject.SetActive(true);
-
+            */
             coll2.enabled = false;
             coll3.enabled = true;
 
@@ -113,6 +123,7 @@ public class animatio_player : MonoBehaviour
         if (currentstate == FBS2)// && Button_3_bool == true)
         {
             myAnimator.Play(FBS3);
+
             Button_3_bool = false;
             Button_4.gameObject.SetActive(true);
 

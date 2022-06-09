@@ -30,6 +30,7 @@ public class animatio_player : MonoBehaviour
     public Button Button_7;
 
     //State variable for buttons 
+
     bool Button_1_bool = false;
     bool Button_2_bool = false;
     bool Button_3_bool = false;
@@ -88,6 +89,7 @@ public class animatio_player : MonoBehaviour
     public void SetState(string nextstate)
     {
         currentstate = nextstate;
+        Debug.Log("called with State: " + nextstate);
     }
 
     private void Update()
@@ -122,11 +124,12 @@ public class animatio_player : MonoBehaviour
 
         if (currentstate == FBS2)// && Button_3_bool == true)
         {
+            Debug.Log("state: " + currentstate.ToString());
             myAnimator.Play(FBS3);
-
+            /*
             Button_3_bool = false;
             Button_4.gameObject.SetActive(true);
-
+            */
             coll3.enabled = false;
             coll4.enabled = true;
 
@@ -134,10 +137,12 @@ public class animatio_player : MonoBehaviour
 
         if (currentstate == FBS3)// && Button_4_bool == true)
         {
+            Debug.Log("state: " + currentstate.ToString());
             myAnimator.Play(FBS4);
+            /*
             Button_4_bool = false;
             Button_5.gameObject.SetActive(true);
-
+            */
             coll4.enabled = false;
             coll5.enabled = true;
 
@@ -145,10 +150,12 @@ public class animatio_player : MonoBehaviour
 
         if (currentstate == FBS4)// && Button_5_bool == true)
         {
+            Debug.Log("state: " + currentstate.ToString());
             myAnimator.Play(FBS5);
+            /*
             Button_5_bool = false;
             Button_6.gameObject.SetActive(true);
-
+            */
             coll5.enabled = false;
             coll6.enabled = true;
 
@@ -156,10 +163,12 @@ public class animatio_player : MonoBehaviour
 
         if (currentstate == FBS5)// && Button_6_bool == true)
         {
+            Debug.Log("state: " + currentstate.ToString());
             myAnimator.Play(FBS6);
+            /*
             Button_6_bool = false;
             Button_7.gameObject.SetActive(true);
-
+            */
             coll6.enabled = false;
             coll7.enabled = true;
 
@@ -167,9 +176,11 @@ public class animatio_player : MonoBehaviour
 
         if (currentstate == FBS6)// && Button_7_bool == true)
         {
+            Debug.Log("state: " + currentstate.ToString());
             myAnimator.Play(FBS7);
+            /*
             Button_7_bool = false;
-
+            */
             coll7.enabled = false;
             coll1.enabled = true;
         }

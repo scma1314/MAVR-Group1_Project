@@ -18,5 +18,6 @@ public class collButton : MonoBehaviour
     {
         if (other.GetComponent<XRDirectInteractor>() != null)
             ani.SetState(state);
+        Debug.Log("calling " + ani.name + " from " + this.name);
     }
 }

@@ -12,7 +12,10 @@ public class Ende : MonoBehaviour
     {
         if (Application.isEditor)
         {
+#if UNITY_EDITOR
             EditorApplication.ExitPlaymode();
+#endif
+            // comment to fill if 
         }
         else
         {

@@ -78,6 +78,8 @@ public class AnimationController : MonoBehaviour
     {
         animatio_Player.coll1.enabled = true;
         LockAnimation = false;
+        AnimationFinished=false;
+        animationRunnning=true;
     }
 
 

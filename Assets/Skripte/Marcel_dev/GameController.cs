@@ -7,7 +7,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 /*
  * ToDo:
  * reset highlighted colors 
- * check if objects fall when deactivvating the socketinteractor
+ * check if objects fall when deactivating the socketinteractor
  * 
  */
     
@@ -122,10 +122,12 @@ public class GameController : MonoBehaviour
             case GameSteps.Idle:
                 currentGameStep = GameSteps.WaitingForStart;
                 break;
+
             case GameSteps.WaitingForStart:
                 // waiting for user to press Start button
                 currentGameStep = GameSteps.GetBox;
                 break;
+
             case GameSteps.GetBox:
 
                 // highlight the snapping zone or the object, depending if the Object is grabbed or not
@@ -154,6 +156,7 @@ public class GameController : MonoBehaviour
                 }
 
                 break;
+
             case GameSteps.UnfoldBox:
                 if (!Fold(box_animation))
                 {
@@ -165,19 +168,39 @@ public class GameController : MonoBehaviour
                 };
                 
                 break;
+
             case GameSteps.PickObjects:
-                
+                if (settings.SmallBox)
+                {
+                    if(Pick_small())
+                    {
+                        currentGameStep = GameSteps.FoldBox;
+                    }
+                }
+                else
+                {
+                    if (Pick_large())
+                    {
+                        currentGameStep = GameSteps.FoldBox;
+                    }
+                }
                 break;
+
             case GameSteps.FoldBox:
                 break;
+
             case GameSteps.Confirm:
                 break;
+
             case GameSteps.End:
                 break;
+
             case GameSteps.Stop:
                 break;
+
             case GameSteps.Error:
                 break;
+
             default:
                 break;
         }
@@ -203,7 +226,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private void Pick_small()
+    private bool Pick_small()
     {
         switch (currentPickStep_small)
         {
@@ -232,45 +255,64 @@ public class GameController : MonoBehaviour
             default:
                 break;
         }
+
+        return false;
     }
 
-    private void Pick_large()
+    private bool Pick_large()
     {
         switch (currentPickStep_large)
         {
             case PickSteps_large.Idle:
                 break;
+
             case PickSteps_large.PlanetgearShaft1:
                 break;
+
             case PickSteps_large.PlanetgearShaft2:
                 break;
+
             case PickSteps_large.PlanetgearShaft3:
                 break;
+
             case PickSteps_large.SungearShaft:
                 break;
+
             case PickSteps_large.Planetgear1:
                 break;
+
             case PickSteps_large.Planetgear2:
                 break;
+
             case PickSteps_large.Planetgear3:
                 break;
+
             case PickSteps_large.Sungear:
                 break;
+
             case PickSteps_large.Spacer12:
                 break;
+
             case PickSteps_large.Ringgear:
                 break;
+
             case PickSteps_large.Spacer23:
                 break;
+
             case PickSteps_large.Planetgear:
                 break;
+
             case PickSteps_large.Stop:
                 break;
+
             case PickSteps_large.Error:
                 break;
+
             default:
                 break;
         }
+
+        return false;
     }
 
     private bool PickObject(GameObject pickObject, GameObject snappingZone)
@@ -305,6 +347,38 @@ public class GameController : MonoBehaviour
         return false;
     }
     
+    private void InitializeBox(GameObject box, bool boxActive = true, bool snapZonesActive = true)
+    {
+        GameObject boxParts;
+        GameObject snapZones;
+        Component[] boxComponents;
+        Component[] snapComponents;
+
+        if (!boxActive)
+        {
+            boxParts = box.transform.Find("Box_parts").gameObject;
+            boxComponents = boxParts.GetComponentsInChildren<MeshRenderer>();
+
+            foreach (MeshRenderer mesh in boxComponents)
+            {
+                mesh.enabled = false;
+                mesh.gameObject.GetComponent<BoxCollider>().enabled = false;
+            }            
+        }
+
+        if (!snapZonesActive)
+        {
+            snapZones = box.transform.Find("Snapzones").gameObject;
+            snapComponents = snapZones.GetComponentsInChildren<XRSocketInteractor>();
+
+            foreach (XRSocketInteractor comp in snapComponents)
+            {
+                comp.transform.gameObject.GetComponentInChildren<MeshRenderer>().enabled = false;
+                comp.transform.gameObject.GetComponent<BoxCollider>().enabled = false;
+                comp.enabled = false;
+            }
+        }
+    }
 
     public GameSettings Settings
     {

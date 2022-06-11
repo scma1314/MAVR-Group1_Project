@@ -3,6 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
+
+/*
+ * ToDo:
+ * reset highlighted colors 
+ * check if objects fall when deactivvating the socketinteractor
+ * 
+ */
+    
+
 public class GameController : MonoBehaviour
 {
     private enum GameSteps
@@ -84,6 +93,7 @@ public class GameController : MonoBehaviour
     public GameObject assemblyTable;
     public GameObject box_animation;
     
+    
 
     // Start is called before the first frame update
     void Start()
@@ -92,7 +102,7 @@ public class GameController : MonoBehaviour
         currentFoldStep = new FoldSteps();
         currentPickStep_small = new PickSteps_small();
         currentPickStep_large = new PickSteps_large();
-        
+                                
     }
 
     // Update is called once per frame
@@ -110,18 +120,50 @@ public class GameController : MonoBehaviour
         switch (currentGameStep)
         {
             case GameSteps.Idle:
+                currentGameStep = GameSteps.WaitingForStart;
                 break;
             case GameSteps.WaitingForStart:
                 // waiting for user to press Start button
-                
+                currentGameStep = GameSteps.GetBox;
                 break;
             case GameSteps.GetBox:
-                
-               
-                
+
+                // highlight the snapping zone or the object, depending if the Object is grabbed or not
+                if ((box_animation.GetComponent<XRGrabInteractable>().isSelected) && (!Settings.HardMode))
+                {
+                    // highlight the snappingzone
+
+                    assemblyTable.GetComponent<XRSocketInteractor>().gameObject.GetComponentInChildren<MeshRenderer>().material.color = Color.green;
+
+                }
+                else if (!Settings.HardMode)
+                {
+                    // highlight the Object
+                    box_animation.GetComponent<MeshRenderer>().material.color = Color.green;
+                }
+
+                // snapping successful
+                if ((assemblyTable.GetComponent<XRSocketInteractor>().hasSelection))
+                {
+                    // deactivate grabbing layers, that object cant be grabbed anymore
+                    box_animation.GetComponent<XRGrabInteractable>().interactionLayers = 0;
+
+                    // make socketinteractor invisible
+                    assemblyTable.GetComponent<XRSocketInteractor>().gameObject.GetComponentInChildren<MeshRenderer>().gameObject.SetActive(false);
+                    currentGameStep = GameSteps.UnfoldBox;
+                }
+
                 break;
             case GameSteps.UnfoldBox:
-                Fold();
+                if (!Fold(box_animation))
+                {
+
+                }
+                else
+                {
+                    currentGameStep = GameSteps.PickObjects;
+                };
+                
                 break;
             case GameSteps.PickObjects:
                 
@@ -141,33 +183,24 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private void Fold()
-    {
-        switch (currentFoldStep)
+    private bool Fold(GameObject box)
+    {   
+        AnimationController aniController = box.GetComponentInChildren<AnimationController>();
+
+        if (!aniController.GetAnimationRunning)
         {
-            case FoldSteps.Idle:
-                break;
-            case FoldSteps.FBS1:
-                break;
-            case FoldSteps.FBS2:
-                break;
-            case FoldSteps.FBS3:
-                break;
-            case FoldSteps.FBS4:
-                break;
-            case FoldSteps.FBS5:
-                break;
-            case FoldSteps.FBS6:
-                break;
-            case FoldSteps.FBS7:
-                break;
-            case FoldSteps.Stop:
-                break;
-            case FoldSteps.Error:
-                break;
-            default:
-                break;
-        }       
+            aniController.RestartAnimation();
+        }
+        
+
+        if (aniController.AnimationFinished)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     private void Pick_small()
@@ -260,8 +293,8 @@ public class GameController : MonoBehaviour
         // deactivate object and snapping zone when the object has entered it. so it can't be picked again
         if (snappingZone.GetComponent<XRSocketInteractor>().hasSelection)
         {
-            // deactivate snapping zone
-            snappingZone.SetActive(false);
+            // deactivate snapping zone mesh rendering
+            snappingZone.gameObject.GetComponentInChildren<MeshRenderer>().gameObject.SetActive(false);
 
             // deactivate all all layers from the Object so it cant be picked again
             pickObject.GetComponent<XRGrabInteractable>().interactionLayers = 0;

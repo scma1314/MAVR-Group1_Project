@@ -16,6 +16,9 @@ public class AnimationController : MonoBehaviour
 
     
     private bool lockAnimation;
+    private bool animationFinished;
+    private bool animationRunnning;
+
     
 
     // Start is called before the first frame update
@@ -24,6 +27,8 @@ public class AnimationController : MonoBehaviour
         debug = true;
         
         lockAnimation = true;
+        animationFinished = false;
+        animationRunnning = false;
         
         
     }
@@ -31,12 +36,29 @@ public class AnimationController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        animationFinished = animatio_Player.AnimationFinished;
+
+        if (animationFinished)
+        {
+            LockAnimation = true;
+        }
+
+        if (!animatio_Player.GetCurrentstate.Equals(""))
+        {
+            animationRunnning = true;
+        }
+        else
+        {
+            animationRunnning = false;
+        }
+
+        /*
         if ((Time.realtimeSinceStartup >= 30.0) && (LockAnimation))
         {
             LockAnimation = false;
             if (debug) { Debug.Log("Animation unlocked after: " + Time.realtimeSinceStartup.ToString() + " seconds"); }
         }
-
+        */
     }
 
     public void SetAnimationState(string nextState)
@@ -52,6 +74,11 @@ public class AnimationController : MonoBehaviour
         
     }
 
+    public void RestartAnimation()
+    {
+        animatio_Player.coll1.enabled = true;
+        LockAnimation = false;
+    }
 
 
 
@@ -77,6 +104,20 @@ public class AnimationController : MonoBehaviour
         set
         {
             settings = value;
+        }
+    }
+
+    public bool AnimationFinished
+    {
+        get { return animationFinished; }
+        set { animationFinished = value; }
+    }
+
+    public bool GetAnimationRunning
+    {
+        get
+        {
+            return animationRunnning;
         }
     }
 }

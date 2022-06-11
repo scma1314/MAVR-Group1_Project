@@ -8,6 +8,7 @@ public class animatio_player : MonoBehaviour
 
     private bool debug;
     private string currentstate;
+    private bool animationFinished;
 
     //define diffrent states  
     //TODO replace with enum 
@@ -39,10 +40,11 @@ public class animatio_player : MonoBehaviour
     {
         myAnimator = GetComponent<Animator>();
         currentstate = "";
+        AnimationFinished = false;
         
         debug = false;
 
-        coll1.enabled = true;
+        coll1.enabled = false;
         coll2.enabled = false;
         coll3.enabled = false;
         coll4.enabled = false;
@@ -125,14 +127,32 @@ public class animatio_player : MonoBehaviour
         {
             if (debug) { Debug.Log("state: " + currentstate.ToString()); }
             myAnimator.Play(FBS7);
+
+            AnimationFinished = true;
           
             coll7.enabled = false;
-            coll1.enabled = true;
+            //coll1.enabled = true;
         }
     }
 
-    
+    public void ResetAnimation()
+    {
 
+    }
+
+
+    public bool AnimationFinished
+    {
+        get
+            { return animationFinished; }
+        set
+            { animationFinished = value; }
+    }
+
+    public string GetCurrentstate
+    {
+        get { return currentstate; }
+    }
 
     // private void Awake() 
     // {

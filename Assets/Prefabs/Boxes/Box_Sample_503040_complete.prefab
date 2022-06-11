@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 110213432}
   m_Layer: 0
   m_Name: Snapzones
-  m_TagString: Untagged
+  m_TagString: SnappingZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 743069450}
   m_Layer: 0
   m_Name: Level_2
-  m_TagString: Untagged
+  m_TagString: Level_2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 1887058049}
   m_Layer: 0
   m_Name: Level_3
-  m_TagString: Untagged
+  m_TagString: Level_3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 2036297713}
   m_Layer: 0
   m_Name: Level_1
-  m_TagString: Untagged
+  m_TagString: Level_1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 2096206440}
   m_Layer: 0
   m_Name: Spacer
-  m_TagString: Untagged
+  m_TagString: Spacer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -222,6 +222,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sonnenrad_Welle
       objectReference: {fileID: 0}
+    - target: {fileID: 4325296302967603431, guid: 300f20cb7c7282943bf536b04faa8d84, type: 3}
+      propertyPath: m_TagString
+      value: Objects
+      objectReference: {fileID: 0}
     - target: {fileID: 6487764065936533304, guid: 300f20cb7c7282943bf536b04faa8d84, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -250,6 +254,10 @@ PrefabInstance:
     - target: {fileID: 4658391292925324110, guid: 8431f9cba98f643459234398301e3f46, type: 3}
       propertyPath: m_Name
       value: Planetenrad
+      objectReference: {fileID: 0}
+    - target: {fileID: 4658391292925324110, guid: 8431f9cba98f643459234398301e3f46, type: 3}
+      propertyPath: m_TagString
+      value: Objects
       objectReference: {fileID: 0}
     - target: {fileID: 8173306877778504346, guid: 8431f9cba98f643459234398301e3f46, type: 3}
       propertyPath: m_RootOrder
@@ -327,6 +335,10 @@ PrefabInstance:
     - target: {fileID: 5661378925909193551, guid: 27f74d5f2f90ade42ae9aa2bf5a44336, type: 3}
       propertyPath: m_Name
       value: Getriebedeckel
+      objectReference: {fileID: 0}
+    - target: {fileID: 5661378925909193551, guid: 27f74d5f2f90ade42ae9aa2bf5a44336, type: 3}
+      propertyPath: m_TagString
+      value: Objects
       objectReference: {fileID: 0}
     - target: {fileID: 9176584919937954459, guid: 27f74d5f2f90ade42ae9aa2bf5a44336, type: 3}
       propertyPath: m_RootOrder
@@ -441,6 +453,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Getriebegehause
       objectReference: {fileID: 0}
+    - target: {fileID: 7833170977437957099, guid: 330bc3312014e59498efb32bd67eb4cb, type: 3}
+      propertyPath: m_TagString
+      value: Objects
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 330bc3312014e59498efb32bd67eb4cb, type: 3}
 --- !u!1001 &3152057900599036205
@@ -453,6 +469,10 @@ PrefabInstance:
     - target: {fileID: 6016456473019803936, guid: c8f5389a5611f854a958c46d227fb4ae, type: 3}
       propertyPath: m_Name
       value: Spacer_hori_1_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6016456473019803936, guid: c8f5389a5611f854a958c46d227fb4ae, type: 3}
+      propertyPath: m_TagString
+      value: Spacer
       objectReference: {fileID: 0}
     - target: {fileID: 6016456473019803937, guid: c8f5389a5611f854a958c46d227fb4ae, type: 3}
       propertyPath: m_RootOrder
@@ -518,6 +538,10 @@ PrefabInstance:
     - target: {fileID: 6016456473019803936, guid: c8f5389a5611f854a958c46d227fb4ae, type: 3}
       propertyPath: m_Name
       value: Spacer_hori_2_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6016456473019803936, guid: c8f5389a5611f854a958c46d227fb4ae, type: 3}
+      propertyPath: m_TagString
+      value: Spacer
       objectReference: {fileID: 0}
     - target: {fileID: 6016456473019803937, guid: c8f5389a5611f854a958c46d227fb4ae, type: 3}
       propertyPath: m_RootOrder
@@ -640,6 +664,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Planetenrad_Welle
       objectReference: {fileID: 0}
+    - target: {fileID: 8173424741658670965, guid: 222ef1d6ed658c94b99d21d39613ef6b, type: 3}
+      propertyPath: m_TagString
+      value: Objects
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 222ef1d6ed658c94b99d21d39613ef6b, type: 3}
 --- !u!1001 &8204261484064073074
@@ -652,6 +680,10 @@ PrefabInstance:
     - target: {fileID: 7703954380702987309, guid: 0a14fe2a96cc06a4ca15fe9bca667b90, type: 3}
       propertyPath: m_Name
       value: SZ_Spacer_1_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703954380702987309, guid: 0a14fe2a96cc06a4ca15fe9bca667b90, type: 3}
+      propertyPath: m_TagString
+      value: Spacer
       objectReference: {fileID: 0}
     - target: {fileID: 7703954380702987310, guid: 0a14fe2a96cc06a4ca15fe9bca667b90, type: 3}
       propertyPath: m_RootOrder
@@ -759,6 +791,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SZ_Planetenrad_Welle
       objectReference: {fileID: 0}
+    - target: {fileID: 47489571014755763, guid: 856888a5abdd7a748ba5103d41427461, type: 3}
+      propertyPath: m_TagString
+      value: Level_2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 856888a5abdd7a748ba5103d41427461, type: 3}
 --- !u!4 &8175110679324277705 stripped
@@ -821,6 +857,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SZ_Getriebedeckel
       objectReference: {fileID: 0}
+    - target: {fileID: 3394673785247890394, guid: d483bc254863825498b4bd339659f55c, type: 3}
+      propertyPath: m_TagString
+      value: Level_2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d483bc254863825498b4bd339659f55c, type: 3}
 --- !u!4 &6829473025939727134 stripped
@@ -882,6 +922,10 @@ PrefabInstance:
     - target: {fileID: 6685854223636746035, guid: 7a6ce97c7bd5ea0499a6f9ab588598bd, type: 3}
       propertyPath: m_Name
       value: SZ_Getriebegehause
+      objectReference: {fileID: 0}
+    - target: {fileID: 6685854223636746035, guid: 7a6ce97c7bd5ea0499a6f9ab588598bd, type: 3}
+      propertyPath: m_TagString
+      value: Level_1
       objectReference: {fileID: 0}
     - target: {fileID: 6685854223636746046, guid: 7a6ce97c7bd5ea0499a6f9ab588598bd, type: 3}
       propertyPath: m_InteractionLayers.m_Bits
@@ -949,6 +993,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SZ_Planetenrad
       objectReference: {fileID: 0}
+    - target: {fileID: 7752577279738560937, guid: cd33f60fdeb3397448a43b487c824a21, type: 3}
+      propertyPath: m_TagString
+      value: Level_3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd33f60fdeb3397448a43b487c824a21, type: 3}
 --- !u!4 &1895394958617287077 stripped
@@ -966,6 +1014,10 @@ PrefabInstance:
     - target: {fileID: 7703954380702987309, guid: 0a14fe2a96cc06a4ca15fe9bca667b90, type: 3}
       propertyPath: m_Name
       value: SZ_Spacer_2_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703954380702987309, guid: 0a14fe2a96cc06a4ca15fe9bca667b90, type: 3}
+      propertyPath: m_TagString
+      value: Spacer
       objectReference: {fileID: 0}
     - target: {fileID: 7703954380702987310, guid: 0a14fe2a96cc06a4ca15fe9bca667b90, type: 3}
       propertyPath: m_RootOrder
@@ -1029,6 +1081,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SZ_Sonnenrad_Welle
       objectReference: {fileID: 0}
+    - target: {fileID: 5804219330435322972, guid: ed9c4a661a1e88640aef6d134387bea5, type: 3}
+      propertyPath: m_TagString
+      value: Level_1
+      objectReference: {fileID: 0}
     - target: {fileID: 5804219330435322973, guid: ed9c4a661a1e88640aef6d134387bea5, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1090,6 +1146,10 @@ PrefabInstance:
     - target: {fileID: 7189794894054936134, guid: d447c1627d3db71499d7f74b618efae8, type: 3}
       propertyPath: m_Name
       value: SZ_Sonnenrad
+      objectReference: {fileID: 0}
+    - target: {fileID: 7189794894054936134, guid: d447c1627d3db71499d7f74b618efae8, type: 3}
+      propertyPath: m_TagString
+      value: Level_3
       objectReference: {fileID: 0}
     - target: {fileID: 7189794894054936135, guid: d447c1627d3db71499d7f74b618efae8, type: 3}
       propertyPath: m_RootOrder
@@ -1156,6 +1216,10 @@ PrefabInstance:
     - target: {fileID: 6498366158338560074, guid: c63f9e4c07f998b44b0380d4f1bbbea8, type: 3}
       propertyPath: m_Name
       value: Sonnenrad
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498366158338560074, guid: c63f9e4c07f998b44b0380d4f1bbbea8, type: 3}
+      propertyPath: m_TagString
+      value: Objects
       objectReference: {fileID: 0}
     - target: {fileID: 7774990770063806865, guid: c63f9e4c07f998b44b0380d4f1bbbea8, type: 3}
       propertyPath: m_Enabled
@@ -1230,6 +1294,18 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1420676015196709736, guid: a8e78453f7f7aac4db3c5a1930fff077, type: 3}
+      propertyPath: m_TagString
+      value: BoxPart
+      objectReference: {fileID: 0}
+    - target: {fileID: 3478112923843324408, guid: a8e78453f7f7aac4db3c5a1930fff077, type: 3}
+      propertyPath: m_TagString
+      value: Objects
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074534430251145928, guid: a8e78453f7f7aac4db3c5a1930fff077, type: 3}
+      propertyPath: m_TagString
+      value: BoxPart
+      objectReference: {fileID: 0}
     - target: {fileID: 5074534430253107888, guid: a8e78453f7f7aac4db3c5a1930fff077, type: 3}
       propertyPath: m_Name
       value: Box_Sample_503040_complete
@@ -1277,6 +1353,26 @@ PrefabInstance:
     - target: {fileID: 5074534430253107903, guid: a8e78453f7f7aac4db3c5a1930fff077, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074534430279003020, guid: a8e78453f7f7aac4db3c5a1930fff077, type: 3}
+      propertyPath: m_TagString
+      value: BoxPart
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074534430825328140, guid: a8e78453f7f7aac4db3c5a1930fff077, type: 3}
+      propertyPath: m_TagString
+      value: BoxPart
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074534431339061605, guid: a8e78453f7f7aac4db3c5a1930fff077, type: 3}
+      propertyPath: m_TagString
+      value: BoxPart
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074534431484666984, guid: a8e78453f7f7aac4db3c5a1930fff077, type: 3}
+      propertyPath: m_TagString
+      value: BoxPart
+      objectReference: {fileID: 0}
+    - target: {fileID: 5490366923496196159, guid: a8e78453f7f7aac4db3c5a1930fff077, type: 3}
+      propertyPath: m_TagString
+      value: Spacer
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8e78453f7f7aac4db3c5a1930fff077, type: 3}

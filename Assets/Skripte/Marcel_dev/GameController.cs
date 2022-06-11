@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class GameController : MonoBehaviour
 {
@@ -67,13 +68,23 @@ public class GameController : MonoBehaviour
     }
 
 
+
     private GameSteps currentGameStep;
     private FoldSteps currentFoldStep;
     private PickSteps_small currentPickStep_small;
     private PickSteps_large currentPickStep_large;
 
-    private GameSettings settings;
     
+    private GameSettings settings;
+
+    // Public instances
+    public GameObject box_small;
+    public GameObject box_large;
+    public GameObject objectsShelf;
+    public GameObject assemblyTable;
+    public GameObject box_animation;
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -101,8 +112,13 @@ public class GameController : MonoBehaviour
             case GameSteps.Idle:
                 break;
             case GameSteps.WaitingForStart:
+                // waiting for user to press Start button
+                
                 break;
             case GameSteps.GetBox:
+                
+               
+                
                 break;
             case GameSteps.UnfoldBox:
                 Fold();
@@ -224,6 +240,38 @@ public class GameController : MonoBehaviour
         }
     }
 
+    private bool PickObject(GameObject pickObject, GameObject snappingZone)
+    {
+        
+        // highlight the snapping zone or the object, depending if the Object is grabbed or not
+        if ((pickObject.GetComponent<XRGrabInteractable>().isSelected) && (!Settings.HardMode))
+        {
+            // highlight the snappingzone
+            snappingZone.GetComponentInChildren<MeshRenderer>().material.color = Color.green;
+            
+        }
+        else if (!Settings.HardMode)
+        {
+            // highlight the Object
+            pickObject.GetComponent<MeshRenderer>().material.color = Color.green;
+        }
+
+
+        // deactivate object and snapping zone when the object has entered it. so it can't be picked again
+        if (snappingZone.GetComponent<XRSocketInteractor>().hasSelection)
+        {
+            // deactivate snapping zone
+            snappingZone.SetActive(false);
+
+            // deactivate all all layers from the Object so it cant be picked again
+            pickObject.GetComponent<XRGrabInteractable>().interactionLayers = 0;
+
+            return true;
+        }
+
+        return false;
+    }
+    
 
     public GameSettings Settings
     {

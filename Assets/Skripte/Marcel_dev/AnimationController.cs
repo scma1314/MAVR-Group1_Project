@@ -31,9 +31,9 @@ public class AnimationController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.realtimeSinceStartup >= 30.0)
+        if ((Time.realtimeSinceStartup >= 30.0) && (LockAnimation))
         {
-            LockAnimation(false);
+            LockAnimation = false;
             if (debug) { Debug.Log("Animation unlocked after: " + Time.realtimeSinceStartup.ToString() + " seconds"); }
         }
 
@@ -41,7 +41,7 @@ public class AnimationController : MonoBehaviour
 
     public void SetAnimationState(string nextState)
     {
-        if (!lockAnimation)
+        if (!LockAnimation)
         {
             animatio_Player.SetState(nextState);
         }
@@ -52,14 +52,22 @@ public class AnimationController : MonoBehaviour
         
     }
 
-    public void LockAnimation(bool lockstate)
+
+
+
+
+    public bool LockAnimation
     {
-        lockAnimation = lockstate;
+        get
+        {
+            return lockAnimation;
+        }
+        set
+        {
+            lockAnimation = value;
+        }
     }
-
-
-
-
+    
     public GameSettings Settings
     {
         get

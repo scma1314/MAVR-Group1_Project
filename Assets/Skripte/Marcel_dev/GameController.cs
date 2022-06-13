@@ -83,13 +83,23 @@ public class GameController : MonoBehaviour
     private PickSteps_small currentPickStep_small;
     private PickSteps_large currentPickStep_large;
 
+    private List<GameObject> box_large_sz;
+    private List<GameObject> box_small_sz;
     
     private GameSettings settings;
+
+    private bool picking_firstEnter;
+
+    private Color objColor;
+    private Color sZColor;
+    private GameObject sZ;
+    private GameObject pickObj;
 
     // Public instances
     public GameObject box_small;
     public GameObject box_large;
     public GameObject objectsShelf;
+    public GameObject spacerShelf;
     public GameObject assemblyTable;
     public GameObject box_animation;
     
@@ -102,7 +112,16 @@ public class GameController : MonoBehaviour
         currentFoldStep = new FoldSteps();
         currentPickStep_small = new PickSteps_small();
         currentPickStep_large = new PickSteps_large();
-                                
+
+        box_small_sz = GetBoxSZ(box_small);
+        box_large_sz = GetBoxSZ(box_large);
+
+        picking_firstEnter = true;
+
+        objColor = Color.black;
+        sZColor = Color.black;
+        sZ = null;
+        pickObj = null;
     }
 
     // Update is called once per frame
@@ -135,7 +154,7 @@ public class GameController : MonoBehaviour
                 {
                     // highlight the snappingzone
 
-                    assemblyTable.GetComponent<XRSocketInteractor>().gameObject.GetComponentInChildren<MeshRenderer>().material.color = Color.green;
+                    assemblyTable.GetComponentInChildren<XRSocketInteractor>().gameObject.GetComponentInChildren<MeshRenderer>().material.color = Color.green;
 
                 }
                 else if (!Settings.HardMode)
@@ -151,7 +170,7 @@ public class GameController : MonoBehaviour
                     box_animation.GetComponent<XRGrabInteractable>().interactionLayers = 0;
 
                     // make socketinteractor invisible
-                    assemblyTable.GetComponent<XRSocketInteractor>().gameObject.GetComponentInChildren<MeshRenderer>().gameObject.SetActive(false);
+                    assemblyTable.GetComponentInChildren<XRSocketInteractor>().gameObject.GetComponentInChildren<MeshRenderer>().gameObject.SetActive(false);
                     currentGameStep = GameSteps.UnfoldBox;
                 }
 
@@ -261,48 +280,242 @@ public class GameController : MonoBehaviour
 
     private bool Pick_large()
     {
+        
         switch (currentPickStep_large)
         {
             case PickSteps_large.Idle:
                 break;
 
             case PickSteps_large.PlanetgearShaft1:
+                                
+                if (picking_firstEnter)
+                {
+                    sZ = box_large_sz[0].transform.Find("SZ_Planetenrad_Welle").gameObject;
+                    pickObj = objectsShelf.transform.Find("Pick_Objects").Find("Aufgabe1_groﬂ").Find("Planetenrad_Welle (1)").gameObject;
+                    sZColor = sZ.GetComponentInChildren<MeshRenderer>().material.color;
+                    objColor = pickObj.GetComponent<MeshRenderer>().material.color;
+                    picking_firstEnter = false;
+                }
+
+                if (PickObject(pickObj, sZ, objColor, sZColor))
+                {
+                    picking_firstEnter = true;
+                    currentPickStep_large = PickSteps_large.PlanetgearShaft2;
+                }
+                
                 break;
 
             case PickSteps_large.PlanetgearShaft2:
+
+                if (picking_firstEnter)
+                {
+                    sZ = box_large_sz[0].transform.Find("SZ_Planetenrad_Welle (1)").gameObject;
+                    pickObj = objectsShelf.transform.Find("Pick_Objects").Find("Aufgabe1_groﬂ").Find("Planetenrad_Welle (2)").gameObject;
+                    sZColor = sZ.GetComponentInChildren<MeshRenderer>().material.color;
+                    objColor = pickObj.GetComponent<MeshRenderer>().material.color;
+                    picking_firstEnter = false;
+                }
+
+                if (PickObject(pickObj, sZ, objColor, sZColor))
+                {
+                    picking_firstEnter = true;
+                    currentPickStep_large = PickSteps_large.PlanetgearShaft3;
+                }
+
                 break;
 
             case PickSteps_large.PlanetgearShaft3:
+
+                if (picking_firstEnter)
+                {
+                    sZ = box_large_sz[0].transform.Find("SZ_Planetenrad_Welle (2)").gameObject;
+                    pickObj = objectsShelf.transform.Find("Pick_Objects").Find("Aufgabe1_groﬂ").Find("Planetenrad_Welle (3)").gameObject;
+                    sZColor = sZ.GetComponentInChildren<MeshRenderer>().material.color;
+                    objColor = pickObj.GetComponent<MeshRenderer>().material.color;
+                    picking_firstEnter = false;
+                }
+
+                if (PickObject(pickObj, sZ, objColor, sZColor))
+                {
+                    picking_firstEnter = true;
+                    currentPickStep_large = PickSteps_large.SungearShaft;
+                }
+
                 break;
 
             case PickSteps_large.SungearShaft:
+
+                if (picking_firstEnter)
+                {
+                    sZ = box_large_sz[0].transform.Find("SZ_Sonnenrad_Welle").gameObject;
+                    pickObj = objectsShelf.transform.Find("Pick_Objects").Find("Aufgabe1_groﬂ").Find("Sonnenrad_Welle (1)").gameObject;
+                    sZColor = sZ.GetComponentInChildren<MeshRenderer>().material.color;
+                    objColor = pickObj.GetComponent<MeshRenderer>().material.color;
+                    picking_firstEnter = false;
+                }
+
+                if (PickObject(pickObj, sZ, objColor, sZColor))
+                {
+                    picking_firstEnter = true;
+                    currentPickStep_large = PickSteps_large.Planetgear1;
+                }
+
                 break;
 
             case PickSteps_large.Planetgear1:
+
+                if (picking_firstEnter)
+                {
+                    sZ = box_large_sz[0].transform.Find("SZ_Planetenrad").gameObject;
+                    pickObj = objectsShelf.transform.Find("Pick_Objects").Find("Aufgabe1_groﬂ").Find("Planetenrad (1)").gameObject;
+                    sZColor = sZ.GetComponentInChildren<MeshRenderer>().material.color;
+                    objColor = pickObj.GetComponent<MeshRenderer>().material.color;
+                    picking_firstEnter = false;
+                }
+
+                if (PickObject(pickObj, sZ, objColor, sZColor))
+                {
+                    picking_firstEnter = true;
+                    currentPickStep_large = PickSteps_large.Planetgear2;
+                }
+
                 break;
 
             case PickSteps_large.Planetgear2:
+
+                if (picking_firstEnter)
+                {
+                    sZ = box_large_sz[0].transform.Find("SZ_Planetenrad (1)").gameObject;
+                    pickObj = objectsShelf.transform.Find("Pick_Objects").Find("Aufgabe1_groﬂ").Find("Planetenrad (2)").gameObject;
+                    sZColor = sZ.GetComponentInChildren<MeshRenderer>().material.color;
+                    objColor = pickObj.GetComponent<MeshRenderer>().material.color;
+                    picking_firstEnter = false;
+                }
+
+                if (PickObject(pickObj, sZ, objColor, sZColor))
+                {
+                    picking_firstEnter = true;
+                    currentPickStep_large = PickSteps_large.Planetgear3;
+                }
+
                 break;
 
             case PickSteps_large.Planetgear3:
+
+                if (picking_firstEnter)
+                {
+                    sZ = box_large_sz[0].transform.Find("SZ_Planetenrad (2)").gameObject;
+                    pickObj = objectsShelf.transform.Find("Pick_Objects").Find("Aufgabe1_groﬂ").Find("Planetenrad (3)").gameObject;
+                    sZColor = sZ.GetComponentInChildren<MeshRenderer>().material.color;
+                    objColor = pickObj.GetComponent<MeshRenderer>().material.color;
+                    picking_firstEnter = false;
+                }
+
+                if (PickObject(pickObj, sZ, objColor, sZColor))
+                {
+                    picking_firstEnter = true;
+                    currentPickStep_large = PickSteps_large.Sungear;
+                }
+
                 break;
 
             case PickSteps_large.Sungear:
+
+                if (picking_firstEnter)
+                {
+                    sZ = box_large_sz[0].transform.Find("SZ_Sonnenrad").gameObject;
+                    pickObj = objectsShelf.transform.Find("Pick_Objects").Find("Aufgabe1_groﬂ").Find("Sonnenrad (1)").gameObject;
+                    sZColor = sZ.GetComponentInChildren<MeshRenderer>().material.color;
+                    objColor = pickObj.GetComponent<MeshRenderer>().material.color;
+                    picking_firstEnter = false;
+                }
+
+                if (PickObject(pickObj, sZ, objColor, sZColor))
+                {
+                    picking_firstEnter = true;
+                    currentPickStep_large = PickSteps_large.Spacer12;
+                }
+
                 break;
 
             case PickSteps_large.Spacer12:
+
+                if (picking_firstEnter)
+                {
+                    sZ = box_large_sz[3].transform.Find("SZ_Spacer_12").gameObject;
+                    pickObj = spacerShelf.transform.Find("Spacer").Find("Spacer_hori_505030 (1)").gameObject;
+                    sZColor = sZ.GetComponentInChildren<MeshRenderer>().material.color;
+                    objColor = pickObj.GetComponent<MeshRenderer>().material.color;
+                    picking_firstEnter = false;
+                }
+
+                if (PickObject(pickObj, sZ, objColor, sZColor))
+                {
+                    picking_firstEnter = true;
+                    currentPickStep_large = PickSteps_large.Ringgear;
+                }
+
                 break;
 
             case PickSteps_large.Ringgear:
+
+                if (picking_firstEnter)
+                {
+                    sZ = box_large_sz[1].transform.Find("SZ_Hohlrad").gameObject;
+                    pickObj = objectsShelf.transform.Find("Pick_Objects").Find("Aufgabe1_groﬂ").Find("Hohlrad (1)").gameObject;
+                    sZColor = sZ.GetComponentInChildren<MeshRenderer>().material.color;
+                    objColor = pickObj.GetComponent<MeshRenderer>().material.color;
+                    picking_firstEnter = false;
+                }
+
+                if (PickObject(pickObj, sZ, objColor, sZColor))
+                {
+                    picking_firstEnter = true;
+                    currentPickStep_large = PickSteps_large.Spacer23;
+                }
+
                 break;
 
             case PickSteps_large.Spacer23:
+
+                if (picking_firstEnter)
+                {
+                    sZ = box_large_sz[3].transform.Find("SZ_Spacer_23").gameObject;
+                    pickObj = spacerShelf.transform.Find("Spacer").Find("Spacer_hori_505030 (2)").gameObject;
+                    sZColor = sZ.GetComponentInChildren<MeshRenderer>().material.color;
+                    objColor = pickObj.GetComponent<MeshRenderer>().material.color;
+                    picking_firstEnter = false;
+                }
+
+                if (PickObject(pickObj, sZ, objColor, sZColor))
+                {
+                    picking_firstEnter = true;
+                    currentPickStep_large = PickSteps_large.Planetgear;
+                }
+
                 break;
 
             case PickSteps_large.Planetgear:
+
+                if (picking_firstEnter)
+                {
+                    sZ = box_large_sz[2].transform.Find("SZ_Planetenrad_Traeger").gameObject;
+                    pickObj = objectsShelf.transform.Find("Pick_Objects").Find("Aufgabe1_groﬂ").Find("Planetenrad_Traeger (1)").gameObject;
+                    sZColor = sZ.GetComponentInChildren<MeshRenderer>().material.color;
+                    objColor = pickObj.GetComponent<MeshRenderer>().material.color;
+                    picking_firstEnter = false;
+                }
+
+                if (PickObject(pickObj, sZ, objColor, sZColor))
+                {
+                    picking_firstEnter = true;
+                    currentPickStep_large = PickSteps_large.Stop;
+                }
+
                 break;
 
             case PickSteps_large.Stop:
+                return true;
                 break;
 
             case PickSteps_large.Error:
@@ -315,12 +528,16 @@ public class GameController : MonoBehaviour
         return false;
     }
 
-    private bool PickObject(GameObject pickObject, GameObject snappingZone)
+    private bool PickObject(GameObject pickObject, GameObject snappingZone, Color objectColor, Color snappingZoneColor)
     {
         
+
         // highlight the snapping zone or the object, depending if the Object is grabbed or not
         if ((pickObject.GetComponent<XRGrabInteractable>().isSelected) && (!Settings.HardMode))
         {
+            // dehilight the object
+            pickObject.GetComponent<MeshRenderer>().material.color = objectColor;
+
             // highlight the snappingzone
             snappingZone.GetComponentInChildren<MeshRenderer>().material.color = Color.green;
             
@@ -329,17 +546,25 @@ public class GameController : MonoBehaviour
         {
             // highlight the Object
             pickObject.GetComponent<MeshRenderer>().material.color = Color.green;
+
+            // dehighlight the snappingzone
+            snappingZone.GetComponentInChildren<MeshRenderer>().material.color = snappingZoneColor;
         }
 
 
         // deactivate object and snapping zone when the object has entered it. so it can't be picked again
         if (snappingZone.GetComponent<XRSocketInteractor>().hasSelection)
         {
+            pickObject.GetComponent<MeshRenderer>().material.color = objectColor;
+            snappingZone.GetComponentInChildren<MeshRenderer>().material.color = snappingZoneColor;
+            
             // deactivate snapping zone mesh rendering
-            snappingZone.gameObject.GetComponentInChildren<MeshRenderer>().gameObject.SetActive(false);
+            // snappingZone.gameObject.GetComponentInChildren<MeshRenderer>().gameObject.SetActive(false);
 
-            // deactivate all all layers from the Object so it cant be picked again
+            // deactivate all layers from the Object so it cant be picked again
             pickObject.GetComponent<XRGrabInteractable>().interactionLayers = 0;
+
+
 
             return true;
         }
@@ -378,6 +603,49 @@ public class GameController : MonoBehaviour
                 comp.enabled = false;
             }
         }
+    }
+
+
+    private List<GameObject> GetBoxSZ(GameObject box)
+    {
+        List<GameObject> outList = new List<GameObject>();
+
+        /*outList.Add(new List<GameObject>());
+        outList.Add(new List<GameObject>());
+        outList.Add(new List<GameObject>());
+        outList.Add(new List<GameObject>());
+        */
+
+        //GameObject sZParent = box.transform.Find("SnapZones").gameObject;
+        outList[0] = box.transform.Find("SnapZones").gameObject.transform.Find("Level_1").gameObject;
+        outList[1] = box.transform.Find("SnapZones").gameObject.transform.Find("Level_2").gameObject;
+        outList[2] = box.transform.Find("SnapZones").gameObject.transform.Find("Level_3").gameObject;
+        outList[3] = box.transform.Find("SnapZones").gameObject.transform.Find("Spacer").gameObject;
+
+       
+        /*
+        foreach (Component component in level1.GetComponentsInChildren<XRSocketInteractor>())
+        {
+            outList[1].Add(component.gameObject);
+        }
+
+        foreach (Component component in level2.GetComponentsInChildren<XRSocketInteractor>())
+        {
+            outList[2].Add(component.gameObject);
+        }
+
+        foreach (Component component in level3.GetComponentsInChildren<XRSocketInteractor>())
+        {
+            outList[3].Add(component.gameObject);
+        }
+
+        foreach (Component component in spacer.GetComponentsInChildren<XRSocketInteractor>())
+        {
+            outList[4].Add(component.gameObject);
+        }
+        */
+
+        return outList;
     }
 
     public GameSettings Settings

@@ -26,7 +26,7 @@ public class AnimationController : MonoBehaviour
     {
         debug = true;
         
-        lockAnimation = true;
+        lockAnimation = false; // switch to true later
         animationFinished = false;
         animationRunnning = false;
         
@@ -59,6 +59,7 @@ public class AnimationController : MonoBehaviour
             if (debug) { Debug.Log("Animation unlocked after: " + Time.realtimeSinceStartup.ToString() + " seconds"); }
         }
         */
+        
     }
 
     public void SetAnimationState(string nextState)

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 110213432}
   m_Layer: 0
-  m_Name: Snapzones
+  m_Name: SnapZones
   m_TagString: SnappingZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -176,7 +176,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7703954380702987309, guid: 0a14fe2a96cc06a4ca15fe9bca667b90, type: 3}
       propertyPath: m_Name
-      value: SZ_Spacer_1_2
+      value: SZ_Spacer_12
       objectReference: {fileID: 0}
     - target: {fileID: 7703954380702987309, guid: 0a14fe2a96cc06a4ca15fe9bca667b90, type: 3}
       propertyPath: m_TagString
@@ -510,7 +510,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7703954380702987309, guid: 0a14fe2a96cc06a4ca15fe9bca667b90, type: 3}
       propertyPath: m_Name
-      value: SZ_Spacer_2_3
+      value: SZ_Spacer_23
       objectReference: {fileID: 0}
     - target: {fileID: 7703954380702987309, guid: 0a14fe2a96cc06a4ca15fe9bca667b90, type: 3}
       propertyPath: m_TagString

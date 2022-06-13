@@ -8,9 +8,6 @@ public class GameSettings : MonoBehaviour
     private bool hardMode;
 
 
-
-
-
     // Start is called before the first frame update
     void Start()
     {

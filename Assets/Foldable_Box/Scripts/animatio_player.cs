@@ -44,7 +44,7 @@ public class animatio_player : MonoBehaviour
         
         debug = false;
 
-        coll1.enabled = false;
+        coll1.enabled = true; // switch to false later
         coll2.enabled = false;
         coll3.enabled = false;
         coll4.enabled = false;

@@ -14,10 +14,17 @@ public class MainMenu : MonoBehaviour
     public Button B_reset;
     public Button B_quit;
 
+
+    private GameSettings settings;
+    private GameController controller;
+
     public void Leicht()
     {
         B_leicht.gameObject.SetActive(false);
         B_schwer.gameObject.SetActive(false);
+
+        controller.Settings = settings;
+        controller.RunGame = true;
     }
     public void Schwer()
     {
@@ -28,8 +35,12 @@ public class MainMenu : MonoBehaviour
 
 
     void Start()
-    {
-        
+    {               
+        settings = ScriptableObject.CreateInstance<GameSettings>();
+        settings.HardMode = false;
+        settings.SmallBox = false;
+        controller = gameObject.GetComponent<GameController>();
+
     }
 
     // Update is called once per frame

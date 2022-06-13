@@ -26,7 +26,7 @@ public class AnimationController : MonoBehaviour
     {
         debug = true;
         
-        lockAnimation = false; // switch to true later
+        lockAnimation = true; // switch to true later
         animationFinished = false;
         animationRunnning = false;
         

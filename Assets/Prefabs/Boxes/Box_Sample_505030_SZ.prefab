@@ -908,6 +908,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2470834833320348267, guid: a4d345c91ea1be24a8dfb3025c466ef1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.14975
+      objectReference: {fileID: 0}
     - target: {fileID: 3254197057039492804, guid: a4d345c91ea1be24a8dfb3025c466ef1, type: 3}
       propertyPath: m_TagString
       value: BoxPart

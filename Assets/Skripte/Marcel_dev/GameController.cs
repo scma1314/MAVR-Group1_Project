@@ -85,10 +85,13 @@ public class GameController : MonoBehaviour
 
     private List<GameObject> box_large_sz;
     private List<GameObject> box_small_sz;
+    private List<GameObject> addedObjects;
     
     private GameSettings settings;
 
     private bool picking_firstEnter;
+    private bool runGame;
+    private bool debug;
 
     private Color objColor;
     private Color sZColor;
@@ -113,21 +116,36 @@ public class GameController : MonoBehaviour
         currentPickStep_small = new PickSteps_small();
         currentPickStep_large = new PickSteps_large();
 
-        box_small_sz = GetBoxSZ(box_small);
-        box_large_sz = GetBoxSZ(box_large);
+
+        //currentPickStep_large = PickSteps_large.Idle;
+
+        addedObjects = new List<GameObject>();
 
         picking_firstEnter = true;
+        runGame = false;
+
+        debug = true; 
 
         objColor = Color.black;
         sZColor = Color.black;
         sZ = null;
         pickObj = null;
+
+        box_small_sz = GetBoxSZ(box_small);
+        box_large_sz = GetBoxSZ(box_large);
+        InitializeBox(box_small, false, false);
+        InitializeBox(box_large, false, false);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        Game();
+        if (runGame)
+        {
+            Game();
+        }
+        
     }
 
 
@@ -144,39 +162,73 @@ public class GameController : MonoBehaviour
 
             case GameSteps.WaitingForStart:
                 // waiting for user to press Start button
-                currentGameStep = GameSteps.GetBox;
+                currentGameStep = GameSteps.PickObjects;
                 break;
 
             case GameSteps.GetBox:
 
-                // highlight the snapping zone or the object, depending if the Object is grabbed or not
-                if ((box_animation.GetComponent<XRGrabInteractable>().isSelected) && (!Settings.HardMode))
+                if (picking_firstEnter)
                 {
-                    // highlight the snappingzone
+                    sZ = assemblyTable.GetComponentInChildren<XRSocketInteractor>().gameObject;
+                    pickObj = box_animation;
+                    sZColor = sZ.GetComponentInChildren<MeshRenderer>().material.color;
+                    objColor = pickObj.GetComponentInChildren<MeshRenderer>().material.color;                    
+                    picking_firstEnter = false;
+                }
 
-                    assemblyTable.GetComponentInChildren<XRSocketInteractor>().gameObject.GetComponentInChildren<MeshRenderer>().material.color = Color.green;
+
+                // highlight the snapping zone or the object, depending if the Object is grabbed or not
+                // snapping successful
+                if ((sZ.GetComponent<XRSocketInteractor>().hasSelection))
+                {
+                    if (debug) { Debug.Log("snapping of animation Box succesfull"); };
+
+                    //pickObj.GetComponent<MeshRenderer>().material.color = objColor;
+                    //sZ.GetComponentInChildren<MeshRenderer>().material.color = sZColor;
+
+                    // deactivate grabbing layers, that object cant be grabbed anymore
+                    pickObj.GetComponent<XRGrabInteractable>().interactionLayers = 0;//LayerMask.GetMask("Snap_Table");
+
+                    // make socketinteractor invisible
+                    //sZ.GetComponentInChildren<MeshRenderer>().gameObject.SetActive(false);
+                    currentGameStep = GameSteps.UnfoldBox;
+                }                
+                else if ((pickObj.GetComponent<XRGrabInteractable>().isSelected) && (!Settings.HardMode))
+                {
+                    if (debug) { Debug.Log("waiting for object to be placed"); };
+                    // highlight the snappingzone
+                    pickObj.GetComponentInChildren<MeshRenderer>().material.color = objColor;
+                    sZ.GetComponentInChildren<MeshRenderer>().material.color = Color.green;
 
                 }
                 else if (!Settings.HardMode)
                 {
+                    if (debug) { Debug.Log("waiting for object to be grabbed"); };
                     // highlight the Object
-                    box_animation.GetComponent<MeshRenderer>().material.color = Color.green;
+                    sZ.GetComponentInChildren<MeshRenderer>().material.color = sZColor;
+                    pickObj.GetComponentInChildren<MeshRenderer>().material.color = Color.green;
                 }
 
+                /*
                 // snapping successful
-                if ((assemblyTable.GetComponent<XRSocketInteractor>().hasSelection))
+                if ((sZ.GetComponent<XRSocketInteractor>().hasSelection))
                 {
+                    if(debug) { Debug.Log("snapping of animation Box succesfull"); };
+
+                    pickObj.GetComponent<MeshRenderer>().material.color = objColor;
+                    sZ.GetComponentInChildren<MeshRenderer>().material.color = sZColor;
                     // deactivate grabbing layers, that object cant be grabbed anymore
-                    box_animation.GetComponent<XRGrabInteractable>().interactionLayers = 0;
+                    pickObj.GetComponent<XRGrabInteractable>().interactionLayers = 0;
 
                     // make socketinteractor invisible
-                    assemblyTable.GetComponentInChildren<XRSocketInteractor>().gameObject.GetComponentInChildren<MeshRenderer>().gameObject.SetActive(false);
+                    sZ.GetComponentInChildren<MeshRenderer>().gameObject.SetActive(false);
                     currentGameStep = GameSteps.UnfoldBox;
                 }
-
+                */
                 break;
 
             case GameSteps.UnfoldBox:
+                if (debug) { Debug.Log("calling Fold"); };
                 if (!Fold(box_animation))
                 {
 
@@ -198,6 +250,7 @@ public class GameController : MonoBehaviour
                 }
                 else
                 {
+                    //if (debug) { Debug.Log("executing Pick_large"); }
                     if (Pick_large())
                     {
                         currentGameStep = GameSteps.FoldBox;
@@ -206,6 +259,25 @@ public class GameController : MonoBehaviour
                 break;
 
             case GameSteps.FoldBox:
+
+
+                // disable filled Box
+                if (settings.SmallBox)
+                {
+                    InitializeBox(box_small, false, false);
+                }
+                else
+                {
+                    InitializeBox(box_large, false, false);
+                }
+
+                foreach (GameObject gObject in addedObjects)
+                {
+                    gObject.SetActive(false);
+                }
+
+
+
                 break;
 
             case GameSteps.Confirm:
@@ -245,6 +317,13 @@ public class GameController : MonoBehaviour
         }
     }
 
+    private bool FinishBox(GameObject box)
+    {
+
+
+        return false;
+    }
+
     private bool Pick_small()
     {
         switch (currentPickStep_small)
@@ -280,21 +359,27 @@ public class GameController : MonoBehaviour
 
     private bool Pick_large()
     {
-        
+        //if (debug) { Debug.Log("executing Pick_large in step: " + currentPickStep_large); };
+
         switch (currentPickStep_large)
         {
             case PickSteps_large.Idle:
+                currentPickStep_large = PickSteps_large.PlanetgearShaft1;
+                InitializeBox(box_large, true, false);
                 break;
 
             case PickSteps_large.PlanetgearShaft1:
-                                
+                 
                 if (picking_firstEnter)
                 {
                     sZ = box_large_sz[0].transform.Find("SZ_Planetenrad_Welle").gameObject;
+                    ReactivateSZ(sZ);
                     pickObj = objectsShelf.transform.Find("Pick_Objects").Find("Aufgabe1_groﬂ").Find("Planetenrad_Welle (1)").gameObject;
-                    sZColor = sZ.GetComponentInChildren<MeshRenderer>().material.color;
+                    sZColor = sZ.GetComponentInChildren<MeshRenderer>(true).material.color;
                     objColor = pickObj.GetComponent<MeshRenderer>().material.color;
+                    addedObjects.Add(pickObj);
                     picking_firstEnter = false;
+                    if (debug) { Debug.Log("executed firstenter and got " + pickObj.name); };
                 }
 
                 if (PickObject(pickObj, sZ, objColor, sZColor))
@@ -310,10 +395,13 @@ public class GameController : MonoBehaviour
                 if (picking_firstEnter)
                 {
                     sZ = box_large_sz[0].transform.Find("SZ_Planetenrad_Welle (1)").gameObject;
+                    ReactivateSZ(sZ);
                     pickObj = objectsShelf.transform.Find("Pick_Objects").Find("Aufgabe1_groﬂ").Find("Planetenrad_Welle (2)").gameObject;
                     sZColor = sZ.GetComponentInChildren<MeshRenderer>().material.color;
                     objColor = pickObj.GetComponent<MeshRenderer>().material.color;
+                    addedObjects.Add(pickObj);
                     picking_firstEnter = false;
+                    if (debug) { Debug.Log("executed firstenter and got " + pickObj.name); };
                 }
 
                 if (PickObject(pickObj, sZ, objColor, sZColor))
@@ -329,10 +417,13 @@ public class GameController : MonoBehaviour
                 if (picking_firstEnter)
                 {
                     sZ = box_large_sz[0].transform.Find("SZ_Planetenrad_Welle (2)").gameObject;
+                    ReactivateSZ(sZ);
                     pickObj = objectsShelf.transform.Find("Pick_Objects").Find("Aufgabe1_groﬂ").Find("Planetenrad_Welle (3)").gameObject;
                     sZColor = sZ.GetComponentInChildren<MeshRenderer>().material.color;
                     objColor = pickObj.GetComponent<MeshRenderer>().material.color;
+                    addedObjects.Add(pickObj);
                     picking_firstEnter = false;
+                    if (debug) { Debug.Log("executed firstenter and got " + pickObj.name); };
                 }
 
                 if (PickObject(pickObj, sZ, objColor, sZColor))
@@ -348,10 +439,13 @@ public class GameController : MonoBehaviour
                 if (picking_firstEnter)
                 {
                     sZ = box_large_sz[0].transform.Find("SZ_Sonnenrad_Welle").gameObject;
+                    ReactivateSZ(sZ);
                     pickObj = objectsShelf.transform.Find("Pick_Objects").Find("Aufgabe1_groﬂ").Find("Sonnenrad_Welle (1)").gameObject;
                     sZColor = sZ.GetComponentInChildren<MeshRenderer>().material.color;
                     objColor = pickObj.GetComponent<MeshRenderer>().material.color;
+                    addedObjects.Add(pickObj);
                     picking_firstEnter = false;
+                    if (debug) { Debug.Log("executed firstenter and got " + pickObj.name); };
                 }
 
                 if (PickObject(pickObj, sZ, objColor, sZColor))
@@ -367,10 +461,13 @@ public class GameController : MonoBehaviour
                 if (picking_firstEnter)
                 {
                     sZ = box_large_sz[0].transform.Find("SZ_Planetenrad").gameObject;
+                    ReactivateSZ(sZ);
                     pickObj = objectsShelf.transform.Find("Pick_Objects").Find("Aufgabe1_groﬂ").Find("Planetenrad (1)").gameObject;
                     sZColor = sZ.GetComponentInChildren<MeshRenderer>().material.color;
                     objColor = pickObj.GetComponent<MeshRenderer>().material.color;
+                    addedObjects.Add(pickObj);
                     picking_firstEnter = false;
+                    if (debug) { Debug.Log("executed firstenter and got " + pickObj.name); };
                 }
 
                 if (PickObject(pickObj, sZ, objColor, sZColor))
@@ -386,10 +483,13 @@ public class GameController : MonoBehaviour
                 if (picking_firstEnter)
                 {
                     sZ = box_large_sz[0].transform.Find("SZ_Planetenrad (1)").gameObject;
+                    ReactivateSZ(sZ);
                     pickObj = objectsShelf.transform.Find("Pick_Objects").Find("Aufgabe1_groﬂ").Find("Planetenrad (2)").gameObject;
                     sZColor = sZ.GetComponentInChildren<MeshRenderer>().material.color;
                     objColor = pickObj.GetComponent<MeshRenderer>().material.color;
+                    addedObjects.Add(pickObj);
                     picking_firstEnter = false;
+                    if (debug) { Debug.Log("executed firstenter and got " + pickObj.name); };
                 }
 
                 if (PickObject(pickObj, sZ, objColor, sZColor))
@@ -405,10 +505,13 @@ public class GameController : MonoBehaviour
                 if (picking_firstEnter)
                 {
                     sZ = box_large_sz[0].transform.Find("SZ_Planetenrad (2)").gameObject;
+                    ReactivateSZ(sZ);
                     pickObj = objectsShelf.transform.Find("Pick_Objects").Find("Aufgabe1_groﬂ").Find("Planetenrad (3)").gameObject;
                     sZColor = sZ.GetComponentInChildren<MeshRenderer>().material.color;
                     objColor = pickObj.GetComponent<MeshRenderer>().material.color;
+                    addedObjects.Add(pickObj);
                     picking_firstEnter = false;
+                    if (debug) { Debug.Log("executed firstenter and got " + pickObj.name); };
                 }
 
                 if (PickObject(pickObj, sZ, objColor, sZColor))
@@ -424,10 +527,13 @@ public class GameController : MonoBehaviour
                 if (picking_firstEnter)
                 {
                     sZ = box_large_sz[0].transform.Find("SZ_Sonnenrad").gameObject;
+                    ReactivateSZ(sZ);
                     pickObj = objectsShelf.transform.Find("Pick_Objects").Find("Aufgabe1_groﬂ").Find("Sonnenrad (1)").gameObject;
                     sZColor = sZ.GetComponentInChildren<MeshRenderer>().material.color;
                     objColor = pickObj.GetComponent<MeshRenderer>().material.color;
+                    addedObjects.Add(pickObj);
                     picking_firstEnter = false;
+                    if (debug) { Debug.Log("executed firstenter and got " + pickObj.name); };
                 }
 
                 if (PickObject(pickObj, sZ, objColor, sZColor))
@@ -443,10 +549,13 @@ public class GameController : MonoBehaviour
                 if (picking_firstEnter)
                 {
                     sZ = box_large_sz[3].transform.Find("SZ_Spacer_12").gameObject;
+                    ReactivateSZ(sZ);
                     pickObj = spacerShelf.transform.Find("Spacer").Find("Spacer_hori_505030 (1)").gameObject;
                     sZColor = sZ.GetComponentInChildren<MeshRenderer>().material.color;
                     objColor = pickObj.GetComponent<MeshRenderer>().material.color;
+                    addedObjects.Add(pickObj);
                     picking_firstEnter = false;
+                    if (debug) { Debug.Log("executed firstenter and got " + pickObj.name); };
                 }
 
                 if (PickObject(pickObj, sZ, objColor, sZColor))
@@ -462,10 +571,13 @@ public class GameController : MonoBehaviour
                 if (picking_firstEnter)
                 {
                     sZ = box_large_sz[1].transform.Find("SZ_Hohlrad").gameObject;
+                    ReactivateSZ(sZ);
                     pickObj = objectsShelf.transform.Find("Pick_Objects").Find("Aufgabe1_groﬂ").Find("Hohlrad (1)").gameObject;
                     sZColor = sZ.GetComponentInChildren<MeshRenderer>().material.color;
                     objColor = pickObj.GetComponent<MeshRenderer>().material.color;
+                    addedObjects.Add(pickObj);
                     picking_firstEnter = false;
+                    if (debug) { Debug.Log("executed firstenter and got " + pickObj.name); };
                 }
 
                 if (PickObject(pickObj, sZ, objColor, sZColor))
@@ -481,10 +593,13 @@ public class GameController : MonoBehaviour
                 if (picking_firstEnter)
                 {
                     sZ = box_large_sz[3].transform.Find("SZ_Spacer_23").gameObject;
+                    ReactivateSZ(sZ);
                     pickObj = spacerShelf.transform.Find("Spacer").Find("Spacer_hori_505030 (2)").gameObject;
                     sZColor = sZ.GetComponentInChildren<MeshRenderer>().material.color;
                     objColor = pickObj.GetComponent<MeshRenderer>().material.color;
+                    addedObjects.Add(pickObj);
                     picking_firstEnter = false;
+                    if (debug) { Debug.Log("executed firstenter and got " + pickObj.name); };
                 }
 
                 if (PickObject(pickObj, sZ, objColor, sZColor))
@@ -500,10 +615,13 @@ public class GameController : MonoBehaviour
                 if (picking_firstEnter)
                 {
                     sZ = box_large_sz[2].transform.Find("SZ_Planetenrad_Traeger").gameObject;
+                    ReactivateSZ(sZ);
                     pickObj = objectsShelf.transform.Find("Pick_Objects").Find("Aufgabe1_groﬂ").Find("Planetenrad_Traeger (1)").gameObject;
                     sZColor = sZ.GetComponentInChildren<MeshRenderer>().material.color;
                     objColor = pickObj.GetComponent<MeshRenderer>().material.color;
+                    addedObjects.Add(pickObj);
                     picking_firstEnter = false;
+                    if (debug) { Debug.Log("executed firstenter and got " + pickObj.name); };
                 }
 
                 if (PickObject(pickObj, sZ, objColor, sZColor))
@@ -530,29 +648,46 @@ public class GameController : MonoBehaviour
 
     private bool PickObject(GameObject pickObject, GameObject snappingZone, Color objectColor, Color snappingZoneColor)
     {
-        
+        if (debug) { Debug.Log("executing PickObject Method"); };
 
         // highlight the snapping zone or the object, depending if the Object is grabbed or not
-        if ((pickObject.GetComponent<XRGrabInteractable>().isSelected) && (!Settings.HardMode))
+        if (snappingZone.GetComponent<XRSocketInteractor>().hasSelection)
+        {
+            pickObject.GetComponent<MeshRenderer>().material.color = objectColor;
+            snappingZone.GetComponentInChildren<MeshRenderer>(true).material.color = snappingZoneColor;
+
+            // deactivate snapping zone mesh rendering
+            // snappingZone.gameObject.GetComponentInChildren<MeshRenderer>().gameObject.SetActive(false);
+
+            // deactivate all layers from the Object so it cant be picked again
+            pickObject.GetComponent<XRGrabInteractable>().interactionLayers = 0;
+
+
+
+            return true;
+        }
+        else if ((pickObject.GetComponent<XRGrabInteractable>().isSelected) && (!Settings.HardMode))
         {
             // dehilight the object
             pickObject.GetComponent<MeshRenderer>().material.color = objectColor;
 
             // highlight the snappingzone
-            snappingZone.GetComponentInChildren<MeshRenderer>().material.color = Color.green;
+            snappingZone.GetComponentInChildren<MeshRenderer>(true).material.color = Color.green;
             
         }
         else if (!Settings.HardMode)
         {
+            //if (debug) { Debug.Log("executing not hardmode"); };
             // highlight the Object
             pickObject.GetComponent<MeshRenderer>().material.color = Color.green;
 
             // dehighlight the snappingzone
-            snappingZone.GetComponentInChildren<MeshRenderer>().material.color = snappingZoneColor;
+            snappingZone.GetComponentInChildren<MeshRenderer>(true).material.color = snappingZoneColor;
         }
 
 
         // deactivate object and snapping zone when the object has entered it. so it can't be picked again
+        /*
         if (snappingZone.GetComponent<XRSocketInteractor>().hasSelection)
         {
             pickObject.GetComponent<MeshRenderer>().material.color = objectColor;
@@ -568,6 +703,7 @@ public class GameController : MonoBehaviour
 
             return true;
         }
+        */
 
         return false;
     }
@@ -582,29 +718,60 @@ public class GameController : MonoBehaviour
         if (!boxActive)
         {
             boxParts = box.transform.Find("Box_parts").gameObject;
-            boxComponents = boxParts.GetComponentsInChildren<MeshRenderer>();
-
+            boxComponents = boxParts.GetComponentsInChildren<MeshRenderer>(true);
+            
             foreach (MeshRenderer mesh in boxComponents)
             {
                 mesh.enabled = false;
                 mesh.gameObject.GetComponent<BoxCollider>().enabled = false;
             }            
         }
+        else
+        {
+            boxParts = box.transform.Find("Box_parts").gameObject;
+            boxComponents = boxParts.GetComponentsInChildren<MeshRenderer>(true);
+
+            foreach (MeshRenderer mesh in boxComponents)
+            {
+                mesh.enabled = true;
+                mesh.gameObject.GetComponent<BoxCollider>().enabled = true;
+            }
+        }
 
         if (!snapZonesActive)
         {
-            snapZones = box.transform.Find("Snapzones").gameObject;
-            snapComponents = snapZones.GetComponentsInChildren<XRSocketInteractor>();
+            snapZones = box.transform.Find("SnapZones").gameObject;
+            snapComponents = snapZones.GetComponentsInChildren<XRSocketInteractor>(true);
 
             foreach (XRSocketInteractor comp in snapComponents)
             {
-                comp.transform.gameObject.GetComponentInChildren<MeshRenderer>().enabled = false;
+                comp.transform.gameObject.GetComponentInChildren<MeshRenderer>(true).enabled = false;
                 comp.transform.gameObject.GetComponent<BoxCollider>().enabled = false;
                 comp.enabled = false;
             }
         }
+        else
+        {
+            snapZones = box.transform.Find("SnapZones").gameObject;
+            snapComponents = snapZones.GetComponentsInChildren<XRSocketInteractor>(true);
+
+            foreach (XRSocketInteractor comp in snapComponents)
+            {
+                comp.transform.gameObject.GetComponentInChildren<MeshRenderer>(true).enabled = true;
+                comp.transform.gameObject.GetComponent<BoxCollider>().enabled = true;                
+                comp.enabled = true;
+            }
+        }
     }
 
+
+    private void ReactivateSZ(GameObject sZ)
+    {
+        sZ.transform.gameObject.GetComponentInChildren<MeshRenderer>(true).enabled = true;
+        sZ.transform.gameObject.GetComponent<BoxCollider>().enabled = true;
+        sZ.GetComponent<XRSocketInteractor>().enabled = true;
+        //sZ.SetActive(true);
+    }
 
     private List<GameObject> GetBoxSZ(GameObject box)
     {
@@ -617,10 +784,10 @@ public class GameController : MonoBehaviour
         */
 
         //GameObject sZParent = box.transform.Find("SnapZones").gameObject;
-        outList[0] = box.transform.Find("SnapZones").gameObject.transform.Find("Level_1").gameObject;
-        outList[1] = box.transform.Find("SnapZones").gameObject.transform.Find("Level_2").gameObject;
-        outList[2] = box.transform.Find("SnapZones").gameObject.transform.Find("Level_3").gameObject;
-        outList[3] = box.transform.Find("SnapZones").gameObject.transform.Find("Spacer").gameObject;
+        outList.Add(box.transform.Find("SnapZones").gameObject.transform.Find("Level_1").gameObject);
+        outList.Add(box.transform.Find("SnapZones").gameObject.transform.Find("Level_2").gameObject);
+        outList.Add(box.transform.Find("SnapZones").gameObject.transform.Find("Level_3").gameObject);
+        outList.Add(box.transform.Find("SnapZones").gameObject.transform.Find("Spacer").gameObject);
 
        
         /*
@@ -658,5 +825,11 @@ public class GameController : MonoBehaviour
         {
             settings = value;
         }
+    }
+
+    public bool RunGame
+    {
+        get { return runGame; }
+        set { runGame = value; }
     }
 }

@@ -162,7 +162,7 @@ public class GameController : MonoBehaviour
 
             case GameSteps.WaitingForStart:
                 // waiting for user to press Start button
-                currentGameStep = GameSteps.PickObjects;
+                currentGameStep = GameSteps.GetBox;
                 break;
 
             case GameSteps.GetBox:
@@ -187,8 +187,9 @@ public class GameController : MonoBehaviour
                     //sZ.GetComponentInChildren<MeshRenderer>().material.color = sZColor;
 
                     // deactivate grabbing layers, that object cant be grabbed anymore
-                    pickObj.GetComponent<XRGrabInteractable>().interactionLayers = 0;//LayerMask.GetMask("Snap_Table");
+                    pickObj.GetComponent<XRGrabInteractable>().interactionLayers = sZ.GetComponent<XRSocketInteractor>().interactionLayers;
 
+                    //pickObj.GetComponent<Rigidbody>().isKinematic = false;
                     // make socketinteractor invisible
                     //sZ.GetComponentInChildren<MeshRenderer>().gameObject.SetActive(false);
                     currentGameStep = GameSteps.UnfoldBox;
@@ -209,26 +210,11 @@ public class GameController : MonoBehaviour
                     pickObj.GetComponentInChildren<MeshRenderer>().material.color = Color.green;
                 }
 
-                /*
-                // snapping successful
-                if ((sZ.GetComponent<XRSocketInteractor>().hasSelection))
-                {
-                    if(debug) { Debug.Log("snapping of animation Box succesfull"); };
-
-                    pickObj.GetComponent<MeshRenderer>().material.color = objColor;
-                    sZ.GetComponentInChildren<MeshRenderer>().material.color = sZColor;
-                    // deactivate grabbing layers, that object cant be grabbed anymore
-                    pickObj.GetComponent<XRGrabInteractable>().interactionLayers = 0;
-
-                    // make socketinteractor invisible
-                    sZ.GetComponentInChildren<MeshRenderer>().gameObject.SetActive(false);
-                    currentGameStep = GameSteps.UnfoldBox;
-                }
-                */
+                
                 break;
 
             case GameSteps.UnfoldBox:
-                if (debug) { Debug.Log("calling Fold"); };
+                //if (debug) { Debug.Log("calling Fold"); };
                 if (!Fold(box_animation))
                 {
 
@@ -276,8 +262,6 @@ public class GameController : MonoBehaviour
                     gObject.SetActive(false);
                 }
 
-
-
                 break;
 
             case GameSteps.Confirm:
@@ -303,7 +287,9 @@ public class GameController : MonoBehaviour
 
         if (!aniController.GetAnimationRunning)
         {
+            if (debug) { Debug.Log("animation restarted"); };
             aniController.RestartAnimation();
+
         }
         
 
@@ -366,6 +352,7 @@ public class GameController : MonoBehaviour
             case PickSteps_large.Idle:
                 currentPickStep_large = PickSteps_large.PlanetgearShaft1;
                 InitializeBox(box_large, true, false);
+                picking_firstEnter = true;
                 break;
 
             case PickSteps_large.PlanetgearShaft1:
@@ -382,7 +369,7 @@ public class GameController : MonoBehaviour
                     if (debug) { Debug.Log("executed firstenter and got " + pickObj.name); };
                 }
 
-                if (PickObject(pickObj, sZ, objColor, sZColor))
+                if ((PickObject(pickObj, sZ, objColor, sZColor)) && (!picking_firstEnter))
                 {
                     picking_firstEnter = true;
                     currentPickStep_large = PickSteps_large.PlanetgearShaft2;
@@ -404,7 +391,7 @@ public class GameController : MonoBehaviour
                     if (debug) { Debug.Log("executed firstenter and got " + pickObj.name); };
                 }
 
-                if (PickObject(pickObj, sZ, objColor, sZColor))
+                if ((PickObject(pickObj, sZ, objColor, sZColor)) && (!picking_firstEnter))
                 {
                     picking_firstEnter = true;
                     currentPickStep_large = PickSteps_large.PlanetgearShaft3;
@@ -426,7 +413,7 @@ public class GameController : MonoBehaviour
                     if (debug) { Debug.Log("executed firstenter and got " + pickObj.name); };
                 }
 
-                if (PickObject(pickObj, sZ, objColor, sZColor))
+                if ((PickObject(pickObj, sZ, objColor, sZColor)) && (!picking_firstEnter))
                 {
                     picking_firstEnter = true;
                     currentPickStep_large = PickSteps_large.SungearShaft;
@@ -448,7 +435,7 @@ public class GameController : MonoBehaviour
                     if (debug) { Debug.Log("executed firstenter and got " + pickObj.name); };
                 }
 
-                if (PickObject(pickObj, sZ, objColor, sZColor))
+                if ((PickObject(pickObj, sZ, objColor, sZColor)) && (!picking_firstEnter))
                 {
                     picking_firstEnter = true;
                     currentPickStep_large = PickSteps_large.Planetgear1;
@@ -470,7 +457,7 @@ public class GameController : MonoBehaviour
                     if (debug) { Debug.Log("executed firstenter and got " + pickObj.name); };
                 }
 
-                if (PickObject(pickObj, sZ, objColor, sZColor))
+                if ((PickObject(pickObj, sZ, objColor, sZColor)) && (!picking_firstEnter))
                 {
                     picking_firstEnter = true;
                     currentPickStep_large = PickSteps_large.Planetgear2;
@@ -492,7 +479,7 @@ public class GameController : MonoBehaviour
                     if (debug) { Debug.Log("executed firstenter and got " + pickObj.name); };
                 }
 
-                if (PickObject(pickObj, sZ, objColor, sZColor))
+                if ((PickObject(pickObj, sZ, objColor, sZColor)) && (!picking_firstEnter))
                 {
                     picking_firstEnter = true;
                     currentPickStep_large = PickSteps_large.Planetgear3;
@@ -514,7 +501,7 @@ public class GameController : MonoBehaviour
                     if (debug) { Debug.Log("executed firstenter and got " + pickObj.name); };
                 }
 
-                if (PickObject(pickObj, sZ, objColor, sZColor))
+                if ((PickObject(pickObj, sZ, objColor, sZColor)) && (!picking_firstEnter))
                 {
                     picking_firstEnter = true;
                     currentPickStep_large = PickSteps_large.Sungear;
@@ -536,7 +523,7 @@ public class GameController : MonoBehaviour
                     if (debug) { Debug.Log("executed firstenter and got " + pickObj.name); };
                 }
 
-                if (PickObject(pickObj, sZ, objColor, sZColor))
+                if ((PickObject(pickObj, sZ, objColor, sZColor)) && (!picking_firstEnter))
                 {
                     picking_firstEnter = true;
                     currentPickStep_large = PickSteps_large.Spacer12;
@@ -558,7 +545,7 @@ public class GameController : MonoBehaviour
                     if (debug) { Debug.Log("executed firstenter and got " + pickObj.name); };
                 }
 
-                if (PickObject(pickObj, sZ, objColor, sZColor))
+                if ((PickObject(pickObj, sZ, objColor, sZColor)) && (!picking_firstEnter))
                 {
                     picking_firstEnter = true;
                     currentPickStep_large = PickSteps_large.Ringgear;
@@ -580,7 +567,7 @@ public class GameController : MonoBehaviour
                     if (debug) { Debug.Log("executed firstenter and got " + pickObj.name); };
                 }
 
-                if (PickObject(pickObj, sZ, objColor, sZColor))
+                if ((PickObject(pickObj, sZ, objColor, sZColor)) && (!picking_firstEnter))
                 {
                     picking_firstEnter = true;
                     currentPickStep_large = PickSteps_large.Spacer23;
@@ -602,7 +589,7 @@ public class GameController : MonoBehaviour
                     if (debug) { Debug.Log("executed firstenter and got " + pickObj.name); };
                 }
 
-                if (PickObject(pickObj, sZ, objColor, sZColor))
+                if ((PickObject(pickObj, sZ, objColor, sZColor)) && (!picking_firstEnter))
                 {
                     picking_firstEnter = true;
                     currentPickStep_large = PickSteps_large.Planetgear;
@@ -624,7 +611,7 @@ public class GameController : MonoBehaviour
                     if (debug) { Debug.Log("executed firstenter and got " + pickObj.name); };
                 }
 
-                if (PickObject(pickObj, sZ, objColor, sZColor))
+                if ((PickObject(pickObj, sZ, objColor, sZColor)) && (!picking_firstEnter))
                 {
                     picking_firstEnter = true;
                     currentPickStep_large = PickSteps_large.Stop;
@@ -660,7 +647,7 @@ public class GameController : MonoBehaviour
             // snappingZone.gameObject.GetComponentInChildren<MeshRenderer>().gameObject.SetActive(false);
 
             // deactivate all layers from the Object so it cant be picked again
-            pickObject.GetComponent<XRGrabInteractable>().interactionLayers = 0;
+            pickObject.GetComponent<XRGrabInteractable>().interactionLayers = snappingZone.GetComponent<XRSocketInteractor>().interactionLayers;
 
 
 

@@ -13,7 +13,8 @@ public class animatio_player : MonoBehaviour
     //define diffrent states  
     //TODO replace with enum 
     const string IDLE = "IDLE";
-    const string FBS1 = "folding_box_step_1";
+    const string FBS0 = "folding_box_step_0_0";
+    const string FBS1 = "folding_box_step_0_1";
     const string FBS2 = "folding_box_step_2";
     const string FBS3 = "folding_box_step_3";
     const string FBS4 = "folding_box_step_4";
@@ -30,6 +31,7 @@ public class animatio_player : MonoBehaviour
     public Collider coll5;
     public Collider coll6;
     public Collider coll7;
+    public Collider coll8;
 
     //instantiate te animator 
     Animator myAnimator;
@@ -42,7 +44,7 @@ public class animatio_player : MonoBehaviour
         currentstate = "";
         AnimationFinished = false;
         
-        debug = false;
+        debug = true;
 
         coll1.enabled = true; // switch to false later
         coll2.enabled = false;
@@ -51,6 +53,7 @@ public class animatio_player : MonoBehaviour
         coll5.enabled = false;
         coll6.enabled = false;
         coll7.enabled = false;
+        coll8.enabled = false; 
     }
 
     public void SetState(string nextstate)
@@ -65,12 +68,24 @@ public class animatio_player : MonoBehaviour
         {
             if (debug) { Debug.Log("state: " + currentstate.ToString()); }
 
-            myAnimator.Play(FBS1);
+            myAnimator.Play(FBS0);
           
             coll1.enabled = false;
-            coll2.enabled = true;
+            coll8.enabled = true;
             
         }
+
+
+        if (currentstate == FBS0)// && Button_2_bool == true)
+        {
+            if (debug) { Debug.Log("state: " + currentstate.ToString()); }
+            myAnimator.Play(FBS1);
+
+            coll8.enabled = false;
+            coll2.enabled = true;
+
+        }
+
 
 
         if (currentstate == FBS1)// && Button_2_bool == true)

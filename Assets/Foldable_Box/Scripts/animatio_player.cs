@@ -197,6 +197,9 @@ public class animatio_player : MonoBehaviour
 
             coll7.GetComponent<MeshRenderer>().material.color = coll3_basecolor;
 
+
+
+
             coll7.enabled = false;
             //coll1.enabled = true;
         }

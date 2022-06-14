@@ -291,7 +291,12 @@ public class GameController : MonoBehaviour
             aniController.RestartAnimation();
 
         }
+        if (aniController.animatio_Player.coll1.enabled)
+        {
+            
+        }
         
+
 
         if (aniController.AnimationFinished)
         {
@@ -351,6 +356,8 @@ public class GameController : MonoBehaviour
         {
             case PickSteps_large.Idle:
                 currentPickStep_large = PickSteps_large.PlanetgearShaft1;
+                // Deactivates box_ani but before animation
+                //box_animation.SetActive(false);
                 InitializeBox(box_large, true, false);
                 picking_firstEnter = true;
                 break;
@@ -640,16 +647,15 @@ public class GameController : MonoBehaviour
         // highlight the snapping zone or the object, depending if the Object is grabbed or not
         if (snappingZone.GetComponent<XRSocketInteractor>().hasSelection)
         {
+                         
             pickObject.GetComponent<MeshRenderer>().material.color = objectColor;
-            snappingZone.GetComponentInChildren<MeshRenderer>(true).material.color = snappingZoneColor;
+            //snappingZone.GetComponentInChildren<MeshRenderer>(true).material.color = snappingZoneColor;
 
             // deactivate snapping zone mesh rendering
             // snappingZone.gameObject.GetComponentInChildren<MeshRenderer>().gameObject.SetActive(false);
 
             // deactivate all layers from the Object so it cant be picked again
             pickObject.GetComponent<XRGrabInteractable>().interactionLayers = snappingZone.GetComponent<XRSocketInteractor>().interactionLayers;
-
-
 
             return true;
         }

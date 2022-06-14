@@ -20,7 +20,7 @@ public class animatio_player : MonoBehaviour
     const string FBS4 = "folding_box_step_4";
     const string FBS5 = "folding_box_step_5";
     const string FBS6 = "folding_box_step_6";
-    const string FBS7 = "folding_box_step_7";
+    const string FBS7 = "folding_box_step_8";
 
 
     //State variable for buttons 
@@ -32,6 +32,19 @@ public class animatio_player : MonoBehaviour
     public Collider coll6;
     public Collider coll7;
     public Collider coll8;
+
+    private Color coll1_basecolor;
+    private Color coll2_basecolor;
+    private Color coll3_basecolor;
+    private Color coll4_basecolor;
+    private Color coll5_basecolor;
+    private Color coll6_basecolor;
+    private Color coll7_basecolor;
+    private Color coll8_basecolor;
+    private Color coll9_basecolor;
+
+
+
 
     //instantiate te animator 
     Animator myAnimator;
@@ -53,7 +66,19 @@ public class animatio_player : MonoBehaviour
         coll5.enabled = false;
         coll6.enabled = false;
         coll7.enabled = false;
-        coll8.enabled = false; 
+        coll8.enabled = false;
+        coll1_basecolor = coll1.GetComponent<MeshRenderer>().material.color;
+        coll2_basecolor = coll2.GetComponent<MeshRenderer>().material.color;
+        coll3_basecolor = coll3.GetComponent<MeshRenderer>().material.color;
+        coll4_basecolor = coll4.GetComponent<MeshRenderer>().material.color;
+        coll5_basecolor = coll5.GetComponent<MeshRenderer>().material.color;
+        coll6_basecolor = coll6.GetComponent<MeshRenderer>().material.color;
+        coll7_basecolor = coll7.GetComponent<MeshRenderer>().material.color;
+        coll8_basecolor = coll8.GetComponent<MeshRenderer>().material.color;
+
+        coll1.GetComponent<MeshRenderer>().material.color = Color.green;
+        //coll9_basecolor = coll9.GetComponent<MeshRenderer>().material.color;
+
     }
 
     public void SetState(string nextstate)
@@ -69,31 +94,44 @@ public class animatio_player : MonoBehaviour
             if (debug) { Debug.Log("state: " + currentstate.ToString()); }
 
             myAnimator.Play(FBS0);
-          
+
+
+            coll1.GetComponent<MeshRenderer>().material.color = coll1_basecolor;
+            coll8.GetComponent<MeshRenderer>().material.color = Color.green;
+
+
             coll1.enabled = false;
             coll8.enabled = true;
             
         }
 
-
+        /*
         if (currentstate == FBS0)// && Button_2_bool == true)
         {
             if (debug) { Debug.Log("state: " + currentstate.ToString()); }
             myAnimator.Play(FBS1);
+
+
+
+            coll8.GetComponent<MeshRenderer>().material.color = coll8_basecolor;
+            coll2.GetComponent<MeshRenderer>().material.color = Color.green;
 
             coll8.enabled = false;
             coll2.enabled = true;
 
         }
 
+        */
 
-
-        if (currentstate == FBS1)// && Button_2_bool == true)
+        if (currentstate == FBS0)// && Button_2_bool == true)
         {
             if (debug) { Debug.Log("state: " + currentstate.ToString()); }
             myAnimator.Play(FBS2);
-          
-            coll2.enabled = false;
+
+            coll8.GetComponent<MeshRenderer>().material.color = coll8_basecolor;
+            coll3.GetComponent<MeshRenderer>().material.color = Color.green;
+
+            coll8.enabled = false;
             coll3.enabled = true;
 
         }
@@ -102,7 +140,10 @@ public class animatio_player : MonoBehaviour
         {
             if (debug) { Debug.Log("state: " + currentstate.ToString()); }
             myAnimator.Play(FBS3);
-        
+
+            coll3.GetComponent<MeshRenderer>().material.color = coll3_basecolor;
+            coll4.GetComponent<MeshRenderer>().material.color = Color.green;
+
             coll3.enabled = false;
             coll4.enabled = true;
 
@@ -112,7 +153,10 @@ public class animatio_player : MonoBehaviour
         {
             if (debug) { Debug.Log("state: " + currentstate.ToString()); }
             myAnimator.Play(FBS4);
-          
+
+            coll4.GetComponent<MeshRenderer>().material.color = coll4_basecolor;
+            coll5.GetComponent<MeshRenderer>().material.color = Color.green;
+
             coll4.enabled = false;
             coll5.enabled = true;
 
@@ -122,7 +166,10 @@ public class animatio_player : MonoBehaviour
         {
             if (debug) { Debug.Log("state: " + currentstate.ToString()); }
             myAnimator.Play(FBS5);
-       
+
+            coll5.GetComponent<MeshRenderer>().material.color = coll5_basecolor;
+            coll6.GetComponent<MeshRenderer>().material.color = Color.green;
+
             coll5.enabled = false;
             coll6.enabled = true;
 
@@ -132,7 +179,10 @@ public class animatio_player : MonoBehaviour
         {
             if (debug) { Debug.Log("state: " + currentstate.ToString()); }
             myAnimator.Play(FBS6);
-         
+
+            coll6.GetComponent<MeshRenderer>().material.color = coll6_basecolor;
+            coll7.GetComponent<MeshRenderer>().material.color = Color.green;
+
             coll6.enabled = false;
             coll7.enabled = true;
 
@@ -144,7 +194,9 @@ public class animatio_player : MonoBehaviour
             myAnimator.Play(FBS7);
 
             AnimationFinished = true;
-          
+
+            coll7.GetComponent<MeshRenderer>().material.color = coll3_basecolor;
+
             coll7.enabled = false;
             //coll1.enabled = true;
         }

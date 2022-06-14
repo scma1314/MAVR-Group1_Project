@@ -692,6 +692,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Level_1
       objectReference: {fileID: 0}
+    - target: {fileID: 7752577279738560938, guid: cd33f60fdeb3397448a43b487c824a21, type: 3}
+      propertyPath: m_InteractionLayers.m_Bits
+      value: 2097152
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd33f60fdeb3397448a43b487c824a21, type: 3}
 --- !u!4 &3315191839268909288 stripped
@@ -706,6 +710,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 29960737}
     m_Modifications:
+    - target: {fileID: 47489571014755757, guid: 856888a5abdd7a748ba5103d41427461, type: 3}
+      propertyPath: m_InteractionLayers.m_Bits
+      value: 262144
+      objectReference: {fileID: 0}
     - target: {fileID: 47489571014755762, guid: 856888a5abdd7a748ba5103d41427461, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -772,6 +780,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 29960737}
     m_Modifications:
+    - target: {fileID: 47489571014755757, guid: 856888a5abdd7a748ba5103d41427461, type: 3}
+      propertyPath: m_InteractionLayers.m_Bits
+      value: 524288
+      objectReference: {fileID: 0}
     - target: {fileID: 47489571014755762, guid: 856888a5abdd7a748ba5103d41427461, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1057,6 +1069,10 @@ PrefabInstance:
     - target: {fileID: 7752577279738560937, guid: cd33f60fdeb3397448a43b487c824a21, type: 3}
       propertyPath: m_TagString
       value: Level_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752577279738560938, guid: cd33f60fdeb3397448a43b487c824a21, type: 3}
+      propertyPath: m_InteractionLayers.m_Bits
+      value: 1048576
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd33f60fdeb3397448a43b487c824a21, type: 3}

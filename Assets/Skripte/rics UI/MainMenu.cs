@@ -23,6 +23,9 @@ public class MainMenu : MonoBehaviour
         B_leicht.gameObject.SetActive(false);
         B_schwer.gameObject.SetActive(false);
 
+        settings.HardMode = false;
+        settings.SmallBox = false;
+
         controller.Settings = settings;
         controller.RunGame = true;
     }
@@ -30,6 +33,12 @@ public class MainMenu : MonoBehaviour
     {
         B_leicht.gameObject.SetActive(false);
         B_schwer.gameObject.SetActive(false);
+
+        settings.HardMode = true;
+        settings.SmallBox = false;
+
+        controller.Settings = settings;
+        controller.RunGame = true;
     }
 
     private void Awake()

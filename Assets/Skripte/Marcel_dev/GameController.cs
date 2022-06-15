@@ -359,6 +359,7 @@ public class GameController : MonoBehaviour
                 // Deactivates box_ani but before animation
                 //box_animation.SetActive(false);
                 InitializeBox(box_large, true, false);
+                box_animation.SetActive(false);
                 picking_firstEnter = true;
                 break;
 

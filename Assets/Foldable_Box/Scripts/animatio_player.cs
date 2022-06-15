@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+using System;
+using System.Threading.Tasks;
+
 public class animatio_player : MonoBehaviour
 {
 
@@ -33,6 +37,8 @@ public class animatio_player : MonoBehaviour
     public Collider coll7;
     public Collider coll8;
 
+    public bool finished;
+
     private Color coll1_basecolor;
     private Color coll2_basecolor;
     private Color coll3_basecolor;
@@ -43,8 +49,12 @@ public class animatio_player : MonoBehaviour
     private Color coll8_basecolor;
     private Color coll9_basecolor;
 
+    public bool AniFinish;
 
-
+    public void Finished()
+    {
+        AnimationFinished = true;   
+    }
 
     //instantiate te animator 
     Animator myAnimator;
@@ -177,7 +187,7 @@ public class animatio_player : MonoBehaviour
 
         if (currentstate == FBS5)// && Button_6_bool == true)
         {
-            if (debug) { Debug.Log("state: " + currentstate.ToString()); }
+            //if (debug) { Debug.Log("state: " + currentstate.ToString()); }
             myAnimator.Play(FBS6);
 
             coll6.GetComponent<MeshRenderer>().material.color = coll6_basecolor;
@@ -193,10 +203,18 @@ public class animatio_player : MonoBehaviour
             if (debug) { Debug.Log("state: " + currentstate.ToString()); }
             myAnimator.Play(FBS7);
 
-            AnimationFinished = true;
+
+            float Ani_finish = myAnimator.GetFloat("fold_value");
+
+            if (debug) { Debug.Log("stateo: " + Ani_finish.ToString()); }
+            if (Ani_finish == 1.00)
+            {
+                AnimationFinished = true;
+            }
+
+         
 
             coll7.GetComponent<MeshRenderer>().material.color = coll3_basecolor;
-
 
 
 

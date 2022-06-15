@@ -13,6 +13,7 @@ public class animatio_player : MonoBehaviour
     private bool debug;
     private string currentstate;
     private bool animationFinished;
+    private GameSettings gameSettings;
 
     //define diffrent states  
     //TODO replace with enum 
@@ -86,7 +87,13 @@ public class animatio_player : MonoBehaviour
         coll7_basecolor = coll7.GetComponent<MeshRenderer>().material.color;
         coll8_basecolor = coll8.GetComponent<MeshRenderer>().material.color;
 
-        coll1.GetComponent<MeshRenderer>().material.color = Color.green;
+        /*
+        if (!GameSettings.HardMode)
+        {
+            coll1.GetComponent<MeshRenderer>().material.color = Color.green;
+        }
+        */
+        
         //coll9_basecolor = coll9.GetComponent<MeshRenderer>().material.color;
 
     }
@@ -99,15 +106,26 @@ public class animatio_player : MonoBehaviour
 
     private void Update()
     {
+        if (gameSettings == null)
+        {
+            if (debug) { Debug.Log("gamesettings Object Null"); }
+            return;
+        }
+
         if (currentstate == IDLE)// && Button_1_bool == true)
         {
             if (debug) { Debug.Log("state: " + currentstate.ToString()); }
 
             myAnimator.Play(FBS0);
 
-
-            coll1.GetComponent<MeshRenderer>().material.color = coll1_basecolor;
-            coll8.GetComponent<MeshRenderer>().material.color = Color.green;
+            
+            if  (!GameSettings.HardMode)
+            {
+                coll1.GetComponent<MeshRenderer>().material.color = coll1_basecolor;
+                coll6.GetComponent<MeshRenderer>().material.color = coll6_basecolor;
+                coll8.GetComponent<MeshRenderer>().material.color = Color.green;
+            }
+            
 
 
             coll1.enabled = false;
@@ -138,8 +156,12 @@ public class animatio_player : MonoBehaviour
             if (debug) { Debug.Log("state: " + currentstate.ToString()); }
             myAnimator.Play(FBS2);
 
-            coll8.GetComponent<MeshRenderer>().material.color = coll8_basecolor;
-            coll3.GetComponent<MeshRenderer>().material.color = Color.green;
+            if (!GameSettings.HardMode)
+            {
+                coll8.GetComponent<MeshRenderer>().material.color = coll8_basecolor;
+                coll3.GetComponent<MeshRenderer>().material.color = Color.green;
+            }
+            
 
             coll8.enabled = false;
             coll3.enabled = true;
@@ -151,8 +173,12 @@ public class animatio_player : MonoBehaviour
             if (debug) { Debug.Log("state: " + currentstate.ToString()); }
             myAnimator.Play(FBS3);
 
-            coll3.GetComponent<MeshRenderer>().material.color = coll3_basecolor;
-            coll4.GetComponent<MeshRenderer>().material.color = Color.green;
+            if (!GameSettings.HardMode)
+            {
+                coll3.GetComponent<MeshRenderer>().material.color = coll3_basecolor;
+                coll4.GetComponent<MeshRenderer>().material.color = Color.green;
+            }
+      
 
             coll3.enabled = false;
             coll4.enabled = true;
@@ -164,8 +190,12 @@ public class animatio_player : MonoBehaviour
             if (debug) { Debug.Log("state: " + currentstate.ToString()); }
             myAnimator.Play(FBS4);
 
-            coll4.GetComponent<MeshRenderer>().material.color = coll4_basecolor;
-            coll5.GetComponent<MeshRenderer>().material.color = Color.green;
+            if (!GameSettings.HardMode)
+            {
+                coll4.GetComponent<MeshRenderer>().material.color = coll4_basecolor;
+                coll5.GetComponent<MeshRenderer>().material.color = Color.green;
+            }
+            
 
             coll4.enabled = false;
             coll5.enabled = true;
@@ -177,9 +207,13 @@ public class animatio_player : MonoBehaviour
             if (debug) { Debug.Log("state: " + currentstate.ToString()); }
             myAnimator.Play(FBS5);
 
-            coll5.GetComponent<MeshRenderer>().material.color = coll5_basecolor;
-            coll6.GetComponent<MeshRenderer>().material.color = Color.green;
+            if (!GameSettings.HardMode)
+            {
+                coll5.GetComponent<MeshRenderer>().material.color = coll5_basecolor;
+                coll6.GetComponent<MeshRenderer>().material.color = Color.green;
 
+            }
+            
             coll5.enabled = false;
             coll6.enabled = true;
 
@@ -190,8 +224,12 @@ public class animatio_player : MonoBehaviour
             //if (debug) { Debug.Log("state: " + currentstate.ToString()); }
             myAnimator.Play(FBS6);
 
-            coll6.GetComponent<MeshRenderer>().material.color = coll6_basecolor;
-            coll7.GetComponent<MeshRenderer>().material.color = Color.green;
+            if (!GameSettings.HardMode)
+            {
+                coll6.GetComponent<MeshRenderer>().material.color = coll6_basecolor;
+                coll7.GetComponent<MeshRenderer>().material.color = Color.green;
+            }
+            
 
             coll6.enabled = false;
             coll7.enabled = true;
@@ -212,11 +250,12 @@ public class animatio_player : MonoBehaviour
                 AnimationFinished = true;
             }
 
-         
 
-            coll7.GetComponent<MeshRenderer>().material.color = coll3_basecolor;
-
-
+            if (!GameSettings.HardMode)
+            {
+                coll7.GetComponent<MeshRenderer>().material.color = coll3_basecolor;
+            }
+            
 
             coll7.enabled = false;
             //coll1.enabled = true;
@@ -240,6 +279,18 @@ public class animatio_player : MonoBehaviour
     public string GetCurrentstate
     {
         get { return currentstate; }
+    }
+
+    public GameSettings GameSettings
+    {
+        get
+        {
+            return gameSettings;
+        }
+        set
+        {
+            gameSettings = value;
+        }
     }
 
     // private void Awake() 

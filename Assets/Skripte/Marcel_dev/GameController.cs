@@ -98,6 +98,9 @@ public class GameController : MonoBehaviour
     private GameObject sZ;
     private GameObject pickObj;
 
+    private MeshRenderer[] boxSZMesh;
+    private MeshRenderer[] boxGrabMesh;
+
     // Public instances
     public GameObject box_small;
     public GameObject box_large;
@@ -105,6 +108,8 @@ public class GameController : MonoBehaviour
     public GameObject spacerShelf;
     public GameObject assemblyTable;
     public GameObject box_animation;
+
+
     
     
 
@@ -131,6 +136,8 @@ public class GameController : MonoBehaviour
         sZ = null;
         pickObj = null;
 
+        //box_animation.GetComponentInChildren<animatio_player>().GameSettings = settings;
+
         box_small_sz = GetBoxSZ(box_small);
         box_large_sz = GetBoxSZ(box_large);
         InitializeBox(box_small, false, false);
@@ -143,6 +150,7 @@ public class GameController : MonoBehaviour
     {
         if (runGame)
         {
+            box_animation.GetComponentInChildren<animatio_player>().GameSettings = settings;
             Game();
         }
         
@@ -174,6 +182,10 @@ public class GameController : MonoBehaviour
                     sZColor = sZ.GetComponentInChildren<MeshRenderer>().material.color;
                     objColor = pickObj.GetComponentInChildren<MeshRenderer>().material.color;                    
                     picking_firstEnter = false;
+
+                    boxSZMesh = sZ.GetComponentsInChildren<MeshRenderer>();
+                    boxGrabMesh = pickObj.GetComponentsInChildren<MeshRenderer>();                    
+
                 }
 
 
@@ -188,7 +200,19 @@ public class GameController : MonoBehaviour
 
                     // deactivate grabbing layers, that object cant be grabbed anymore
                     pickObj.GetComponent<XRGrabInteractable>().interactionLayers = sZ.GetComponent<XRSocketInteractor>().interactionLayers;
+                    pickObj.transform.Find("Grab").gameObject.SetActive(false);
 
+                    foreach (MeshRenderer meshRen in boxGrabMesh)
+                    {
+                        meshRen.material.color = objColor;
+                    }
+
+                    
+                    foreach (MeshRenderer meshRen in boxSZMesh)
+                    {
+                        meshRen.enabled = false;
+                    }
+                    
                     //pickObj.GetComponent<Rigidbody>().isKinematic = false;
                     // make socketinteractor invisible
                     //sZ.GetComponentInChildren<MeshRenderer>().gameObject.SetActive(false);
@@ -198,15 +222,37 @@ public class GameController : MonoBehaviour
                 {
                     if (debug) { Debug.Log("waiting for object to be placed"); };
                     // highlight the snappingzone
-                    pickObj.GetComponentInChildren<MeshRenderer>().material.color = objColor;
-                    sZ.GetComponentInChildren<MeshRenderer>().material.color = Color.green;
+                    //pickObj.GetComponentInChildren<MeshRenderer>().material.color = objColor;
+
+                    foreach (MeshRenderer meshRen in boxSZMesh)
+                    {
+                        meshRen.material.color = Color.green;
+                    }
+
+                    foreach (MeshRenderer meshRen in boxGrabMesh)
+                    {
+                        meshRen.material.color = objColor;
+                    }
+
 
                 }
                 else if (!Settings.HardMode)
                 {
                     if (debug) { Debug.Log("waiting for object to be grabbed"); };
                     // highlight the Object
-                    sZ.GetComponentInChildren<MeshRenderer>().material.color = sZColor;
+                    //sZ.GetComponentInChildren<MeshRenderer>().material.color = sZColor;
+
+                    foreach (MeshRenderer meshRen in boxSZMesh)
+                    {
+                        meshRen.material.color = sZColor;
+                    }
+
+                    foreach (MeshRenderer meshRen in boxGrabMesh)
+                    {
+                        meshRen.material.color = Color.green;
+                    }
+
+
                     pickObj.GetComponentInChildren<MeshRenderer>().material.color = Color.green;
                 }
 
@@ -284,6 +330,7 @@ public class GameController : MonoBehaviour
     private bool Fold(GameObject box)
     {   
         AnimationController aniController = box.GetComponentInChildren<AnimationController>();
+        
 
         if (!aniController.GetAnimationRunning)
         {
@@ -291,9 +338,12 @@ public class GameController : MonoBehaviour
             aniController.RestartAnimation();
 
         }
-        if (aniController.animatio_Player.coll1.enabled)
+
+        if ((aniController.animatio_Player.coll1.enabled) && (!settings.HardMode))
         {
-            
+            aniController.animatio_Player.coll1.GetComponent<MeshRenderer>().material.color = Color.green;
+            aniController.animatio_Player.coll6.GetComponent<MeshRenderer>().material.color = Color.green;
+
         }
         
 

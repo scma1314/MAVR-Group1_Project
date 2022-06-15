@@ -32,12 +32,14 @@ public class MainMenu : MonoBehaviour
         B_schwer.gameObject.SetActive(false);
     }
 
-
+    private void Awake()
+    {
+        settings = ScriptableObject.CreateInstance<GameSettings>();
+    }
 
     void Start()
-    {               
-        settings = ScriptableObject.CreateInstance<GameSettings>();
-        settings.HardMode = false;
+    {                       
+        settings.HardMode = true;
         settings.SmallBox = false;
         controller = gameObject.GetComponent<GameController>();
 

@@ -26,7 +26,9 @@ public class MainMenu : MonoBehaviour
         settings.HardMode = false;
         settings.SmallBox = false;
 
+        controller.box_animationChild.GameSettings = settings;
         controller.Settings = settings;
+
         controller.RunGame = true;
     }
     public void Schwer()
@@ -37,7 +39,9 @@ public class MainMenu : MonoBehaviour
         settings.HardMode = true;
         settings.SmallBox = false;
 
+        controller.box_animationChild.GameSettings = settings;
         controller.Settings = settings;
+
         controller.RunGame = true;
     }
 
@@ -47,16 +51,15 @@ public class MainMenu : MonoBehaviour
     }
 
     void Start()
-    {                       
+    {
         settings.HardMode = true;
         settings.SmallBox = false;
         controller = gameObject.GetComponent<GameController>();
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

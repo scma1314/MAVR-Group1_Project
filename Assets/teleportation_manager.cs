@@ -34,25 +34,38 @@ public class teleportation_manager : MonoBehaviour
 
     private void OnTeleportActivate(InputAction.CallbackContext context)
     {
-
-        leftrayInteractor.enabled = true;
+        if (leftrayInteractor != null)
+        {
+            leftrayInteractor.enabled = true;
+        }
 
     }
 
     private void OnTelportCancel(InputAction.CallbackContext context)
     {
-        leftrayInteractor.enabled = false;
+        if (leftrayInteractor != null)
+        {
+            leftrayInteractor.enabled = false;
+        }
+
     }
 
     private void OnUIActivate(InputAction.CallbackContext context)
     {
+        if (rightrayInteractor != null)
+        {
+            rightrayInteractor.enabled = true;
+        }
 
-        rightrayInteractor.enabled = true;
 
     }
 
     private void OnUICancel(InputAction.CallbackContext context)
     {
-        rightrayInteractor.enabled = false;
+        if (rightrayInteractor != null)
+        {
+            rightrayInteractor.enabled = false;
+        }
+        
     }
 }

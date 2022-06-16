@@ -10,9 +10,10 @@ public class collButton : MonoBehaviour
     public string state;
 
 
-    private void Start()
+    private void FixedUpdate()
     {
-        animationController = FindObjectOfType<AnimationController>();
+        if (animationController == null)
+            animationController = FindObjectOfType<AnimationController>();
     }
 
     // Start is called before the first frame update

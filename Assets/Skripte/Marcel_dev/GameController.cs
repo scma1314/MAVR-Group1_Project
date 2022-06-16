@@ -108,14 +108,13 @@ public class GameController : MonoBehaviour
     public GameObject spacerShelf;
     public GameObject assemblyTable;
     public GameObject box_animation;
-
-
-    
-    
+    public animatio_player box_animationChild;
 
     // Start is called before the first frame update
     void Start()
     {
+        box_animationChild = box_animation.GetComponentInChildren<animatio_player>();
+
         currentGameStep = new GameSteps();
         currentFoldStep = new FoldSteps();
         currentPickStep_small = new PickSteps_small();
@@ -129,7 +128,7 @@ public class GameController : MonoBehaviour
         picking_firstEnter = true;
         runGame = false;
 
-        debug = true; 
+        debug = false; 
 
         objColor = Color.black;
         sZColor = Color.black;
@@ -150,15 +149,11 @@ public class GameController : MonoBehaviour
     {
         if (runGame)
         {
-            box_animation.GetComponentInChildren<animatio_player>().GameSettings = settings;
+            //box_animation.GetComponentInChildren<animatio_player>().gameSettings = settings;
             Game();
         }
         
     }
-
-
-
-
 
     private void Game()
     {
@@ -200,7 +195,7 @@ public class GameController : MonoBehaviour
 
                     // deactivate grabbing layers, that object cant be grabbed anymore
                     pickObj.GetComponent<XRGrabInteractable>().interactionLayers = sZ.GetComponent<XRSocketInteractor>().interactionLayers;
-                    pickObj.transform.Find("Grab").gameObject.SetActive(false);
+                    //pickObj.transform.Find("Grab").gameObject.SetActive(false);
 
                     foreach (MeshRenderer meshRen in boxGrabMesh)
                     {

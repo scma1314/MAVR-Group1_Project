@@ -13,7 +13,7 @@ public class animatio_player : MonoBehaviour
     private bool debug;
     private string currentstate;
     private bool animationFinished;
-    private GameSettings gameSettings;
+    public GameSettings gameSettings;
 
     //define diffrent states  
     //TODO replace with enum 

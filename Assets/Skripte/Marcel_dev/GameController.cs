@@ -112,6 +112,11 @@ public class GameController : MonoBehaviour
     public GameObject assemblyTable;
     public GameObject box_animation;
     public animatio_player box_animationChild;
+    public GameObject endBox_small;
+    public GameObject endBox_large;
+    public GameObject SZEndbox_small;
+    public GameObject SZEndbox_large;
+
 
     // Start is called before the first frame update
     void Start()
@@ -145,7 +150,13 @@ public class GameController : MonoBehaviour
         box_large_sz = GetBoxSZ(box_large);
         InitializeBox(box_small, false, false);
         InitializeBox(box_large, false, false);
-        
+        endBox_small.SetActive(false);
+        endBox_large.SetActive(false);
+
+        SZEndbox_large.SetActive(false);
+       // SZEndbox_small.SetActive(false);
+
+
     }
 
     // Update is called once per frame
@@ -327,6 +338,18 @@ public class GameController : MonoBehaviour
                         gObject.SetActive(false);
                     }
 
+                    box_animation.SetActive(false);
+
+                    if (settings.SmallBox)
+                    {
+                        endBox_small.SetActive(true);
+                    }
+                    else
+                    {
+                        endBox_large.SetActive(true);
+                    }
+
+                    currentGameStep = GameSteps.Confirm;
                 }
 
                 /*
@@ -346,6 +369,30 @@ public class GameController : MonoBehaviour
                 break;
 
             case GameSteps.Confirm:
+                
+                if (settings.SmallBox)
+                {
+
+                }
+                else
+                {
+                    if (picking_firstEnter)
+                    {
+                        SZEndbox_large.SetActive(true);
+                        sZColor = SZEndbox_large.GetComponentInChildren<MeshRenderer>().material.color;
+                        objColor = endBox_large.GetComponent<MeshRenderer>().material.color;
+                        picking_firstEnter = false;
+                        
+                    }
+
+                    if (PickObject(endBox_large, SZEndbox_large, objColor, sZColor))
+                    {
+                        currentGameStep = GameSteps.End;
+                        picking_firstEnter = true;
+                    }
+                }
+                
+
                 break;
 
             case GameSteps.End:
@@ -757,27 +804,6 @@ public class GameController : MonoBehaviour
             // dehighlight the snappingzone
             snappingZone.GetComponentInChildren<MeshRenderer>(true).material.color = snappingZoneColor;
         }
-
-
-        // deactivate object and snapping zone when the object has entered it. so it can't be picked again
-        /*
-        if (snappingZone.GetComponent<XRSocketInteractor>().hasSelection)
-        {
-            pickObject.GetComponent<MeshRenderer>().material.color = objectColor;
-            snappingZone.GetComponentInChildren<MeshRenderer>().material.color = snappingZoneColor;
-            
-            // deactivate snapping zone mesh rendering
-            // snappingZone.gameObject.GetComponentInChildren<MeshRenderer>().gameObject.SetActive(false);
-
-            // deactivate all layers from the Object so it cant be picked again
-            pickObject.GetComponent<XRGrabInteractable>().interactionLayers = 0;
-
-
-
-            return true;
-        }
-        */
-
         return false;
     }
     

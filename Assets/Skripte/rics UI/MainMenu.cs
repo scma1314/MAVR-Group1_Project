@@ -14,6 +14,8 @@ public class MainMenu : MonoBehaviour
     public Button B_reset;
     public Button B_quit;
 
+    public Timer Clock;
+
 
     private GameSettings settings;
     private GameController controller;
@@ -30,6 +32,7 @@ public class MainMenu : MonoBehaviour
         controller.Settings = settings;
 
         controller.RunGame = true;
+        Clock.Timer_running = true;
     }
     public void Schwer()
     {
@@ -43,6 +46,7 @@ public class MainMenu : MonoBehaviour
         controller.Settings = settings;
 
         controller.RunGame = true;
+        Clock.Timer_running = true;
     }
 
     private void Awake()

@@ -305,15 +305,29 @@ public class GameController : MonoBehaviour
                 
                 foreach (GameObject gObject in addedObjects)
                 {
-                    //gObject.SetActive(false);
+                    gObject.GetComponent<Rigidbody>().useGravity = false;
+                    
                 }
 
                 if (animation_firstEnter)
                 {
+                    if (!settings.HardMode)
+                    {
+                        aniController.animatio_Player.coll9.GetComponent<MeshRenderer>().material.color = Color.green;
+                    }
+                    
                     aniController.RestartAnimation(aniController.animatio_Player.coll9);
                     animation_firstEnter = false;  
                 }
-                
+
+                if (aniController.AnimationFinished)
+                {
+                    foreach (GameObject gObject in addedObjects)
+                    {
+                        gObject.SetActive(false);
+                    }
+
+                }
 
                 /*
                 if (picking_firstEnter)

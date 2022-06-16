@@ -101,11 +101,8 @@ AnimatorStateMachine:
     m_State: {fileID: 4086852144554344900}
     m_Position: {x: 190, y: 660, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 4270363823196278803}
-    m_Position: {x: 225, y: 725, z: 0}
-  - serializedVersion: 1
     m_State: {fileID: 1521248296055864853}
-    m_Position: {x: 260, y: 790, z: 0}
+    m_Position: {x: 200, y: 730, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -203,7 +200,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: folding_box_step_9 0
+  m_Name: folding_box_step_9
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -321,32 +318,6 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 5279f2818dba56f46825b06c1de7548e, type: 2}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
---- !u!1102 &4270363823196278803
-AnimatorState:
-  serializedVersion: 6
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: folding_box_step_9
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 7dc5122b526e64f4fb7c0b16a966045c, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

@@ -154,6 +154,8 @@ public class GameController : MonoBehaviour
         endBox_large.SetActive(false);
 
         SZEndbox_large.SetActive(false);
+
+        spacerShelf.transform.Find("Spacer").Find("Spacer_hori_505030 (2)").gameObject.SetActive(false);
        // SZEndbox_small.SetActive(false);
 
 
@@ -717,6 +719,7 @@ public class GameController : MonoBehaviour
                     sZ = box_large_sz[3].transform.Find("SZ_Spacer_23").gameObject;
                     ReactivateSZ(sZ);
                     pickObj = spacerShelf.transform.Find("Spacer").Find("Spacer_hori_505030 (2)").gameObject;
+                    pickObj.SetActive(true);
                     sZColor = sZ.GetComponentInChildren<MeshRenderer>().material.color;
                     objColor = pickObj.GetComponent<MeshRenderer>().material.color;
                     addedObjects.Add(pickObj);

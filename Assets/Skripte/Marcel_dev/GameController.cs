@@ -90,6 +90,7 @@ public class GameController : MonoBehaviour
     private GameSettings settings;
 
     private bool picking_firstEnter;
+    private bool animation_firstEnter;
     private bool runGame;
     private bool debug;
 
@@ -100,6 +101,8 @@ public class GameController : MonoBehaviour
 
     private MeshRenderer[] boxSZMesh;
     private MeshRenderer[] boxGrabMesh;
+
+    private AnimationController aniController;
 
     // Public instances
     public GameObject box_small;
@@ -126,6 +129,7 @@ public class GameController : MonoBehaviour
         addedObjects = new List<GameObject>();
 
         picking_firstEnter = true;
+        animation_firstEnter = true;
         runGame = false;
 
         debug = false; 
@@ -287,21 +291,43 @@ public class GameController : MonoBehaviour
 
             case GameSteps.FoldBox:
 
-
+                
                 // disable filled Box
                 if (settings.SmallBox)
                 {
-                    InitializeBox(box_small, false, false);
+                    InitializeBox(box_small, false, false);                    
                 }
                 else
                 {
-                    InitializeBox(box_large, false, false);
+                    InitializeBox(box_large, false, false);                    
                 }
-
+                
+                
                 foreach (GameObject gObject in addedObjects)
                 {
-                    gObject.SetActive(false);
+                    //gObject.SetActive(false);
                 }
+
+                if (animation_firstEnter)
+                {
+                    aniController.RestartAnimation(aniController.animatio_Player.coll9);
+                    animation_firstEnter = false;  
+                }
+                
+
+                /*
+                if (picking_firstEnter)
+                {
+                    aniController.animatio_Player.coll9.GetComponent<MeshRenderer>().material.color = Color.green;
+                    aniController.animatio_Player.coll9.enabled = true;
+                    aniController.animatio_Player.AnimationFinished = false;
+                    aniController.LockAnimation = false;
+                    picking_firstEnter = false;
+                }
+                */
+
+
+
 
                 break;
 
@@ -324,13 +350,13 @@ public class GameController : MonoBehaviour
 
     private bool Fold(GameObject box)
     {   
-        AnimationController aniController = box.GetComponentInChildren<AnimationController>();
+        aniController = box.GetComponentInChildren<AnimationController>();
         
 
         if (!aniController.GetAnimationRunning)
         {
             if (debug) { Debug.Log("animation restarted"); };
-            aniController.RestartAnimation();
+            aniController.RestartAnimation(aniController.animatio_Player.coll1);
 
         }
 
@@ -345,6 +371,7 @@ public class GameController : MonoBehaviour
 
         if (aniController.AnimationFinished)
         {
+            aniController.LockAnimation = true;
             return true;
         }
         else
@@ -353,12 +380,6 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private bool FinishBox(GameObject box)
-    {
-
-
-        return false;
-    }
 
     private bool Pick_small()
     {
@@ -403,8 +424,8 @@ public class GameController : MonoBehaviour
                 currentPickStep_large = PickSteps_large.PlanetgearShaft1;
                 // Deactivates box_ani but before animation
                 //box_animation.SetActive(false);
-                InitializeBox(box_large, true, false);
-                box_animation.SetActive(false);
+                //InitializeBox(box_large, true, false);
+                //box_animation.SetActive(false);
                 picking_firstEnter = true;
                 break;
 
@@ -682,7 +703,6 @@ public class GameController : MonoBehaviour
             default:
                 break;
         }
-
         return false;
     }
 
@@ -750,27 +770,42 @@ public class GameController : MonoBehaviour
     private void InitializeBox(GameObject box, bool boxActive = true, bool snapZonesActive = true)
     {
         GameObject boxParts;
+        GameObject boxExternParts;
         GameObject snapZones;
         Component[] boxComponents;
+        Component[] boxExternComponents;
         Component[] snapComponents;
 
+        boxParts = box.transform.Find("Box_parts").gameObject;
+        boxExternParts = box.transform.Find("Side_Parts").gameObject;
+
+        boxComponents = boxParts.GetComponentsInChildren<MeshRenderer>(true);
+        boxExternComponents = boxExternParts.GetComponentsInChildren<MeshRenderer>(true);
+
+        snapZones = box.transform.Find("SnapZones").gameObject;
+        snapComponents = snapZones.GetComponentsInChildren<XRSocketInteractor>(true);
+
         if (!boxActive)
-        {
-            boxParts = box.transform.Find("Box_parts").gameObject;
-            boxComponents = boxParts.GetComponentsInChildren<MeshRenderer>(true);
-            
+        {                        
             foreach (MeshRenderer mesh in boxComponents)
             {
                 mesh.enabled = false;
                 mesh.gameObject.GetComponent<BoxCollider>().enabled = false;
-            }            
+            }
+            foreach (MeshRenderer mesh in boxExternComponents)
+            {
+                mesh.enabled = false;
+                mesh.gameObject.GetComponent<BoxCollider>().enabled = false;
+            }
         }
         else
         {
-            boxParts = box.transform.Find("Box_parts").gameObject;
-            boxComponents = boxParts.GetComponentsInChildren<MeshRenderer>(true);
-
             foreach (MeshRenderer mesh in boxComponents)
+            {
+                mesh.enabled = true;
+                mesh.gameObject.GetComponent<BoxCollider>().enabled = true;
+            }
+            foreach (MeshRenderer mesh in boxExternComponents)
             {
                 mesh.enabled = true;
                 mesh.gameObject.GetComponent<BoxCollider>().enabled = true;
@@ -779,9 +814,6 @@ public class GameController : MonoBehaviour
 
         if (!snapZonesActive)
         {
-            snapZones = box.transform.Find("SnapZones").gameObject;
-            snapComponents = snapZones.GetComponentsInChildren<XRSocketInteractor>(true);
-
             foreach (XRSocketInteractor comp in snapComponents)
             {
                 comp.transform.gameObject.GetComponentInChildren<MeshRenderer>(true).enabled = false;
@@ -791,9 +823,6 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            snapZones = box.transform.Find("SnapZones").gameObject;
-            snapComponents = snapZones.GetComponentsInChildren<XRSocketInteractor>(true);
-
             foreach (XRSocketInteractor comp in snapComponents)
             {
                 comp.transform.gameObject.GetComponentInChildren<MeshRenderer>(true).enabled = true;

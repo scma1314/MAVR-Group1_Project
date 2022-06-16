@@ -75,11 +75,13 @@ public class AnimationController : MonoBehaviour
         
     }
 
-    public void RestartAnimation()
+    public void RestartAnimation(Collider coll)
     {
-        animatio_Player.coll1.enabled = true;
+        //animatio_Player.coll1.enabled = true;
+        coll.enabled = true;
         LockAnimation = false;
-        AnimationFinished=false;
+        animatio_Player.AnimationFinished=false;
+        animationFinished = false;
         animationRunnning=true;
     }
 

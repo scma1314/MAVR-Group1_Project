@@ -68,6 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb29397366f7ab240b618be674dd7378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameSettings: {fileID: 0}
   coll1: {fileID: 2274375140467439407}
   coll2: {fileID: 2274375139207307142}
   coll3: {fileID: 2274375139412724797}
@@ -76,6 +77,7 @@ MonoBehaviour:
   coll6: {fileID: 2274375140673506521}
   coll7: {fileID: 2274375139514990935}
   coll8: {fileID: 0}
+  coll9: {fileID: 0}
   finished: 0
   AniFinish: 0
 --- !u!114 &2274375139003678923
@@ -102,6 +104,8 @@ GameObject:
   - component: {fileID: 2274375139032329416}
   - component: {fileID: 2274375139032329418}
   - component: {fileID: 2274375139032329419}
+  - component: {fileID: 7837115982353175764}
+  - component: {fileID: 6329769616385331891}
   m_Layer: 0
   m_Name: Top_1
   m_TagString: Untagged
@@ -174,6 +178,34 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &7837115982353175764
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2274375139032329417}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4453662522683764179, guid: 5da92754117273a40955514ae500054e, type: 3}
+--- !u!114 &6329769616385331891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2274375139032329417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f63f08c84df0b134cb1cafa92b8d2687, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationController: {fileID: 2274375139003678923}
+  state: folding_box_step_8
 --- !u!1 &2274375139108372725
 GameObject:
   m_ObjectHideFlags: 0

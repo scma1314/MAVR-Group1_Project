@@ -26,6 +26,7 @@ public class animatio_player : MonoBehaviour
     const string FBS5 = "folding_box_step_5";
     const string FBS6 = "folding_box_step_6";
     const string FBS7 = "folding_box_step_8";
+    const string FBS8 = "folding_box_step_9";
 
 
     //State variable for buttons 
@@ -37,6 +38,7 @@ public class animatio_player : MonoBehaviour
     public Collider coll6;
     public Collider coll7;
     public Collider coll8;
+    public Collider coll9;
 
     public bool finished;
 
@@ -50,8 +52,7 @@ public class animatio_player : MonoBehaviour
     private Color coll8_basecolor;
     private Color coll9_basecolor;
 
-    public bool AniFinish;
-
+    
     public void Finished()
     {
         AnimationFinished = true;   
@@ -78,6 +79,7 @@ public class animatio_player : MonoBehaviour
         coll6.enabled = false;
         coll7.enabled = false;
         coll8.enabled = false;
+        coll9.enabled = false;
         coll1_basecolor = coll1.GetComponent<MeshRenderer>().material.color;
         coll2_basecolor = coll2.GetComponent<MeshRenderer>().material.color;
         coll3_basecolor = coll3.GetComponent<MeshRenderer>().material.color;
@@ -86,6 +88,7 @@ public class animatio_player : MonoBehaviour
         coll6_basecolor = coll6.GetComponent<MeshRenderer>().material.color;
         coll7_basecolor = coll7.GetComponent<MeshRenderer>().material.color;
         coll8_basecolor = coll8.GetComponent<MeshRenderer>().material.color;
+        coll9_basecolor = coll9.GetComponent<MeshRenderer>().material.color;
 
         /*
         if (!GameSettings.HardMode)
@@ -93,7 +96,7 @@ public class animatio_player : MonoBehaviour
             coll1.GetComponent<MeshRenderer>().material.color = Color.green;
         }
         */
-        
+
         //coll9_basecolor = coll9.GetComponent<MeshRenderer>().material.color;
 
     }
@@ -131,25 +134,7 @@ public class animatio_player : MonoBehaviour
             coll1.enabled = false;
             coll8.enabled = true;
             
-        }
-
-        /*
-        if (currentstate == FBS0)// && Button_2_bool == true)
-        {
-            if (debug) { Debug.Log("state: " + currentstate.ToString()); }
-            myAnimator.Play(FBS1);
-
-
-
-            coll8.GetComponent<MeshRenderer>().material.color = coll8_basecolor;
-            coll2.GetComponent<MeshRenderer>().material.color = Color.green;
-
-            coll8.enabled = false;
-            coll2.enabled = true;
-
-        }
-
-        */
+        }    
 
         if (currentstate == FBS0)// && Button_2_bool == true)
         {
@@ -241,25 +226,32 @@ public class animatio_player : MonoBehaviour
             if (debug) { Debug.Log("state: " + currentstate.ToString()); }
             myAnimator.Play(FBS7);
 
-
-            float Ani_finish = myAnimator.GetFloat("fold_value");
-
-            if (debug) { Debug.Log("stateo: " + Ani_finish.ToString()); }
-            if (Ani_finish == 1.00)
-            {
-                AnimationFinished = true;
-            }
-
-
+                      
             if (!GameSettings.HardMode)
             {
                 coll7.GetComponent<MeshRenderer>().material.color = coll3_basecolor;
             }
-            
 
+            currentstate = "arsch";
             coll7.enabled = false;
-            //coll1.enabled = true;
+            //coll9.enabled = true;
         }
+
+        if (currentstate == FBS7)// && Button_7_bool == true)
+        {
+            if (debug) { Debug.Log("state: " + currentstate.ToString()); }
+            myAnimator.Play(FBS8);
+
+
+            if (!GameSettings.HardMode)
+            {
+                coll9.GetComponent<MeshRenderer>().material.color = coll9_basecolor;
+            }
+
+
+            coll9.enabled = false;
+        }
+
     }
 
     public void ResetAnimation()

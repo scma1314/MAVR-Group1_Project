@@ -6,11 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Laboratory_Room _Leicht2_.unity
-    guid: add8fe2c3d3a9e746b5f668d061e9830
+    path: Assets/Scenes/Modified_Scenes/CommissioningRoom_Order_Small.unity
+    guid: 82067493d7a063c48863d542def8b9e5
   - enabled: 1
-    path: Assets/Scenes/Laboratory_Room _Scene_small_.unity
-    guid: 346e27742552dd24e92ba14271fa6c5c
+    path: Assets/Scenes/Modified_Scenes/CommissioningRoom_Order_Large.unity
+    guid: 0f1da19fd4a5262458ecb2ba581f27ec
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: cf5f44f93587ae343b0603863c1d8b77, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 97bbb6341500d3b4694156fe2e7c0d86, type: 2}

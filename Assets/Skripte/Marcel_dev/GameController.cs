@@ -140,7 +140,7 @@ public class GameController : MonoBehaviour
         animation_firstEnter = true;
         runGame = false;
 
-        debug = false; 
+        debug = true; 
 
         objColor = Color.black;
         sZColor = Color.black;
@@ -172,6 +172,7 @@ public class GameController : MonoBehaviour
         if (runGame)
         {            
             Game();
+            if (debug) { Debug.Log("Settings boxsize state: " + settings.SmallBox.ToString()); };
         }        
     }
 

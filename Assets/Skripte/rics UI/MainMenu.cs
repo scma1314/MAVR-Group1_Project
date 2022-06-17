@@ -26,7 +26,7 @@ public class MainMenu : MonoBehaviour
         B_schwer.gameObject.SetActive(false);
 
         settings.HardMode = false;
-        settings.SmallBox = false;
+        settings.SmallBox = true;
 
         controller.box_animationChild.GameSettings = settings;
         controller.Settings = settings;
@@ -40,7 +40,7 @@ public class MainMenu : MonoBehaviour
         B_schwer.gameObject.SetActive(false);
 
         settings.HardMode = true;
-        settings.SmallBox = false;
+        settings.SmallBox = true;
 
         controller.box_animationChild.GameSettings = settings;
         controller.Settings = settings;

@@ -172,8 +172,7 @@ public class GameController : MonoBehaviour
         if (runGame)
         {            
             Game();
-        }
-        
+        }        
     }
 
     private void Game()
@@ -529,7 +528,7 @@ public class GameController : MonoBehaviour
             case PickSteps_small.GearboxTop:
                 if (picking_firstEnter)
                 {
-                    sZ = box_small_sz[0].transform.Find("SZ_Getriebedeckel").gameObject;
+                    sZ = box_small_sz[1].transform.Find("SZ_Getriebedeckel").gameObject;
                     ReactivateSZ(sZ);
                     pickObj = objectsShelf.transform.Find("Pick_Objects").Find("Aufgabe2_klein").Find("Getriebedeckel (1)").gameObject;
                     sZColor = sZ.GetComponentInChildren<MeshRenderer>(true).material.color;
@@ -550,7 +549,7 @@ public class GameController : MonoBehaviour
             case PickSteps_small.PlanetgearShaft:
                 if (picking_firstEnter)
                 {
-                    sZ = box_small_sz[0].transform.Find("SZ_Planetenrad_Welle").gameObject;
+                    sZ = box_small_sz[1].transform.Find("SZ_Planetenrad_Welle").gameObject;
                     ReactivateSZ(sZ);
                     pickObj = objectsShelf.transform.Find("Pick_Objects").Find("Aufgabe2_klein").Find("Planetenrad_Welle (1)").gameObject;
                     sZColor = sZ.GetComponentInChildren<MeshRenderer>(true).material.color;
@@ -574,6 +573,7 @@ public class GameController : MonoBehaviour
                     sZ = box_small_sz[3].transform.Find("SZ_Spacer_23").gameObject;
                     ReactivateSZ(sZ);
                     pickObj = spacerShelf.transform.Find("Spacer").Find("Spacer_hori_503040 (2)").gameObject;
+                    pickObj.SetActive(true);
                     sZColor = sZ.GetComponentInChildren<MeshRenderer>().material.color;
                     objColor = pickObj.GetComponent<MeshRenderer>().material.color;
                     addedObjects.Add(pickObj);
@@ -591,7 +591,7 @@ public class GameController : MonoBehaviour
             case PickSteps_small.Sungear:
                 if (picking_firstEnter)
                 {
-                    sZ = box_small_sz[0].transform.Find("SZ_Sonnenrad").gameObject;
+                    sZ = box_small_sz[2].transform.Find("SZ_Sonnenrad").gameObject;
                     ReactivateSZ(sZ);
                     pickObj = objectsShelf.transform.Find("Pick_Objects").Find("Aufgabe2_klein").Find("Sonnenrad (1)").gameObject;
                     sZColor = sZ.GetComponentInChildren<MeshRenderer>(true).material.color;
@@ -612,7 +612,7 @@ public class GameController : MonoBehaviour
             case PickSteps_small.Planetgear:
                 if (picking_firstEnter)
                 {
-                    sZ = box_small_sz[0].transform.Find("SZ_Planetenrad").gameObject;
+                    sZ = box_small_sz[2].transform.Find("SZ_Planetenrad").gameObject;
                     ReactivateSZ(sZ);
                     pickObj = objectsShelf.transform.Find("Pick_Objects").Find("Aufgabe2_klein").Find("Planetenrad (1)").gameObject;
                     sZColor = sZ.GetComponentInChildren<MeshRenderer>(true).material.color;
@@ -630,6 +630,7 @@ public class GameController : MonoBehaviour
 
                 break;
             case PickSteps_small.Stop:
+                return true;
                 break;
             case PickSteps_small.Error:
                 break;

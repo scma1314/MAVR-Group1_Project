@@ -8,7 +8,7 @@ public class Szenenwechsel : MonoBehaviour
 {
     public void Scene1()
     {
-        SceneManager.LoadScene("Laboratory_Room _Leicht1_");
+        SceneManager.LoadScene("Laboratory_Room_Scene_small_");
     }
     public void Scene2()
     {

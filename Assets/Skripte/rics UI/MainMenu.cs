@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class MainMenu : MonoBehaviour
     public Button B_reset;
     public Button B_quit;
 
+
+    public TMP_Text mainmenu_Header;
     public Timer Clock;
     public Szenenwechsel szenenwechsel;
 
@@ -26,6 +29,7 @@ public class MainMenu : MonoBehaviour
     {
         B_leicht.gameObject.SetActive(false);
         B_schwer.gameObject.SetActive(false);
+        mainmenu_Header.text = "Aufträge";
 
         settings.HardMode = false;
 
@@ -40,6 +44,7 @@ public class MainMenu : MonoBehaviour
     {
         B_leicht.gameObject.SetActive(false);
         B_schwer.gameObject.SetActive(false);
+        mainmenu_Header.text = "Aufträge";
 
         settings.HardMode = true;
 
@@ -62,10 +67,16 @@ public class MainMenu : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "CommissioningRoom_Order_Small")
         {
             settings.SmallBox = true;
+            mainmenu_Header.text = "Schwierigkeit";
+            B_leicht.gameObject.SetActive(true);
+            B_schwer.gameObject.SetActive(true);
         }
         else if (SceneManager.GetActiveScene().name == "CommissioningRoom_Order_Large")
         {
             settings.SmallBox = false;
+            mainmenu_Header.text = "Schwierigkeit";
+            B_leicht.gameObject.SetActive(true);
+            B_schwer.gameObject.SetActive(true);
         }
         else
         {

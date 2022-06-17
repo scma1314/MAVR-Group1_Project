@@ -23,8 +23,8 @@ public class Clipboard : MonoBehaviour
     public void Highscore()
     {
         clipboard.SetActive(true);
-        Clipboard_Text.text = Timer_Text.text;
-        Clipboard_Header.text = "Auftrag fertig! \n Zeit: ";    }
+        Clipboard_Text.text = (" \n\n\n " + Timer_Text.text);
+        Clipboard_Header.text = "Auftrag fertig! \n\n Zeit: \n ";    }
 
     private void Start()
     {

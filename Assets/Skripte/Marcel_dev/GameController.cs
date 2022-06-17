@@ -140,7 +140,7 @@ public class GameController : MonoBehaviour
         animation_firstEnter = true;
         runGame = false;
 
-        debug = true; 
+        debug = false; 
 
         objColor = Color.black;
         sZColor = Color.black;

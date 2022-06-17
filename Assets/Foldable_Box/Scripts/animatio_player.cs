@@ -69,7 +69,7 @@ public class animatio_player : MonoBehaviour
         currentstate = "";
         AnimationFinished = false;
         
-        debug = true;
+        debug = false;
 
         coll1.enabled = true; // switch to false later
         coll2.enabled = false;
@@ -104,7 +104,7 @@ public class animatio_player : MonoBehaviour
     public void SetState(string nextstate)
     {
         currentstate = nextstate;
-        Debug.Log("called with State: " + nextstate);
+        if (debug) { Debug.Log("called with State: " + nextstate); }
     }
 
     private void Update()

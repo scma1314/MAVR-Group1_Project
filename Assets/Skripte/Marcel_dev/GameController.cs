@@ -323,7 +323,8 @@ public class GameController : MonoBehaviour
                 foreach (GameObject gObject in addedObjects)
                 {
                     gObject.GetComponent<Rigidbody>().useGravity = false;
-                    
+                    gObject.GetComponent<Rigidbody>().isKinematic = true;                
+
                 }
 
                 if (animation_firstEnter)

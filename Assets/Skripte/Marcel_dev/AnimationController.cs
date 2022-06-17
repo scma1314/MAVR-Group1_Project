@@ -24,7 +24,7 @@ public class AnimationController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        debug = true;
+        debug = false;
         
         lockAnimation = true; // switch to true later
         animationFinished = false;

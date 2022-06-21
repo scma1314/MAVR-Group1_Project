@@ -29,7 +29,7 @@ public class MainMenu : MonoBehaviour
     {
         B_leicht.gameObject.SetActive(false);
         B_schwer.gameObject.SetActive(false);
-        mainmenu_Header.text = "Aufträge";
+        mainmenu_Header.text = "Orders";
 
         settings.HardMode = false;
 
@@ -44,7 +44,7 @@ public class MainMenu : MonoBehaviour
     {
         B_leicht.gameObject.SetActive(false);
         B_schwer.gameObject.SetActive(false);
-        mainmenu_Header.text = "Aufträge";
+        mainmenu_Header.text = "Orders";
 
         settings.HardMode = true;
 
@@ -67,14 +67,14 @@ public class MainMenu : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "CommissioningRoom_Order_Small")
         {
             settings.SmallBox = true;
-            mainmenu_Header.text = "Schwierigkeit";
+            //mainmenu_Header.text = "Schwierigkeit";
             B_leicht.gameObject.SetActive(true);
             B_schwer.gameObject.SetActive(true);
         }
         else if (SceneManager.GetActiveScene().name == "CommissioningRoom_Order_Large")
         {
             settings.SmallBox = false;
-            mainmenu_Header.text = "Schwierigkeit";
+            //mainmenu_Header.text = "Schwierigkeit";
             B_leicht.gameObject.SetActive(true);
             B_schwer.gameObject.SetActive(true);
         }

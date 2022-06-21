@@ -24,11 +24,11 @@ public class Clipboard : MonoBehaviour
     {
         clipboard.SetActive(true);
         Clipboard_Text.text = (" \n\n\n " + Timer_Text.text);
-        Clipboard_Header.text = "Auftrag fertig! \n\n Zeit: \n ";    }
+        Clipboard_Header.text = "Order finished! \n\n Time: \n ";    }
 
     private void Start()
     {
-        Clipboard_Text.text = "1. Schwierigkeit und Auftrag über das Hauptmenü auswählen \n\n 2.  Zum Tisch gehen \n\n 3. Auftrag ausführen";
+        Clipboard_Text.text = "1. Select Order and difficulty via the main menu \n\n 2.  Go to the table \n\n 3. Execute order";
     }
 
 
